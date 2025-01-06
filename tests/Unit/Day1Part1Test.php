@@ -6,7 +6,7 @@ describe('Day1Part1', function () {
 
     test('mass 12 requires 2 fuel', function () {
         $task = new Day1Part1();
-        $result = $task->setInput(14)->run()->getResult();
+        $result = $task->setInput(12)->run()->getResult();
         expect((int)$result)->toBe(2);
     });
 
