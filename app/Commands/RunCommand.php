@@ -43,7 +43,14 @@ class RunCommand extends Command
         $dayBanner = "--- Day {$day}: {$dayName} - Part {$partAsText} ---";
         $this->info($dayBanner);
 
-        // TODO: Run the task here...
+        // TODO: Set the input here
+        $task->setInput('lorem ipsum');
+
+        $task->run();
+
+        $resultDescription = $task->getResultDescription();
+        $result = $task->getResult();
+        $this->info("{$resultDescription}: {$result}");
     }
 
     /**
