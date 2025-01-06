@@ -43,8 +43,10 @@ class RunCommand extends Command
         $dayBanner = "--- Day {$day}: {$dayName} - Part {$partAsText} ---";
         $this->info($dayBanner);
 
-        // TODO: Set the input here
-        $task->setInput('lorem ipsum');
+        // Read input from file
+        $inputFile = __DIR__ . "/../../input/d{$day}.data";
+        $input = trim(file_get_contents($inputFile));
+        $task->setInput($input);
 
         $task->run();
 
