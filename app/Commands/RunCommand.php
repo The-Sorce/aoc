@@ -31,13 +31,17 @@ class RunCommand extends Command
         $day = $this->argument('day');
         $part = $this->argument('part');
 
-        $class_name = "App\AocTasks\Day{$day}Part{$part}";
-        if (!class_exists($class_name)) {
+        $className = "App\AocTasks\Day{$day}Part{$part}";
+        if (!class_exists($className)) {
             $this->error("No task implementation found for day {$day} part {$part}");
+            return;
         }
 
-        $this->info("Initializing task for day {$day} part {$part}");
-        $task = new $class_name;
+        $task = new $className;
+        $dayName = $task->getDayName();
+        $partAsText = ($part == 1) ? 'One' : 'Two';
+        $dayBanner = "--- Day {$day}: {$dayName} - Part {$partAsText} ---";
+        $this->info($dayBanner);
 
         // TODO: Run the task here...
     }
