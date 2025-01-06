@@ -2,7 +2,7 @@
 
 namespace App\AocTasks;
 
-class AocTask
+abstract class AocTask
 {
     /**
      * Name of the task for the day, as given by AoC.
@@ -101,11 +101,6 @@ class AocTask
     /**
      * Runs the task.
      */
-    public function run(): AocTask
-    {
-        // If we see this exception, there is clearly something lacking. :D
-        throw new \Exception('No implementation for task!');
+    abstract public function run(): AocTask;
 
-        return $this;
-    }
 }
