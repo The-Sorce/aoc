@@ -11,7 +11,6 @@ class Day2Part1 extends AocTask
     public function run(): AocTask
     {
         $computer = new IntcodeComputer($this->getInput());
-        $this->intcodeComputer = $computer;
 
         $computer->setStatePos(1, 12);
         $computer->setStatePos(2, 2);
