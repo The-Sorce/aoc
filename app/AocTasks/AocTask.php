@@ -60,7 +60,7 @@ class AocTask
     /**
      * Sets the result (after the task has been run).
      */
-    protected function setResult(string $result)
+    protected function setResult(string $result): void
     {
         $this->result = $result;
     }
@@ -76,7 +76,7 @@ class AocTask
     /**
      * Sets the result description.
      */
-    protected function setResultDescription(string $resultDescription)
+    protected function setResultDescription(string $resultDescription): void
     {
         $this->resultDescription = $resultDescription;
     }
@@ -92,7 +92,7 @@ class AocTask
     /**
      * Sets the input data for the task.
      */
-    public function setInput(string $input = null)
+    public function setInput(string $input = null): AocTask
     {
         $this->input = $input;
         return $this;
@@ -101,7 +101,7 @@ class AocTask
     /**
      * Runs the task.
      */
-    public function run()
+    public function run(): AocTask
     {
         // If we see this exception, there is clearly something lacking. :D
         throw new \Exception('No implementation for task!');

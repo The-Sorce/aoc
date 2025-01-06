@@ -6,7 +6,7 @@ class Day1Part2 extends AocTask
 {
     protected $dayName = 'The Tyranny of the Rocket Equation';
 
-    public function run()
+    public function run(): AocTask
     {
         $input_array = explode("\n", $this->getInput());
 
