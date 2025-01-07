@@ -3,6 +3,45 @@ declare(strict_types=1);
 
 use App\AocTasks\HelperClasses\IntcodeComputer;
 
+describe('IntcodeComputer', function () {
+
+    it('can add (2 + 3 = 5)', function () {
+        $input = '1,5,6,7,99,2,3,0';
+        $expectedState = '1,5,6,7,99,2,3,5';
+
+        $computer = new IntcodeComputer($input);
+        $computer->run();
+        $state = $computer->getMemoryAsString();
+        expect($state)->toBe($expectedState);
+    });
+
+    it('can multiply (3 * 4 = 12)', function () {
+        $input = '2,5,6,7,99,3,4,0';
+        $expectedState = '2,5,6,7,99,3,4,12';
+
+        $computer = new IntcodeComputer($input);
+        $computer->run();
+        $state = $computer->getMemoryAsString();
+        expect($state)->toBe($expectedState);
+    });
+
+    it('can halt', function () {
+        $input = '1,5,6,7,99,2,3,0';
+        $computer = new IntcodeComputer($input);
+        $computer->run();
+        $instructionPointer = $computer->getInstructionPointer();
+        expect($instructionPointer)->toBe(4);
+
+    });
+
+    it('catches invalid opcodes', function () {
+        $input = '88,1,2,3,4,5';
+        $computer = new IntcodeComputer($input);
+        expect(fn() => $computer->run())->toThrow('Invalid opcode: 88');
+    });
+
+});
+
 describe('Day2Part1', function () {
 
     test('Test case 1', function () {

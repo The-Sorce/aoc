@@ -19,6 +19,11 @@ class IntcodeComputer
         }
     }
 
+    public function getInstructionPointer(): int
+    {
+        return $this->instructionPointer;
+    }
+
     public function getMemoryAsArray(): array
     {
         return $this->memory;
