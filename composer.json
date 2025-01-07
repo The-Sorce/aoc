@@ -1,8 +1,8 @@
 {
-    "name": "the-sorce/aoc2019",
-    "description": "Advent of Code 2019 solutions",
+    "name": "the-sorce/aoc",
+    "description": "Advent of Code PHP solutions",
     "keywords": ["aoc", "puzzle", "console", "cli"],
-    "homepage": "https://github.com/The-Sorce/aoc2019",
+    "homepage": "https://github.com/The-Sorce/aoc",
     "type": "project",
     "license": "MIT",
     "authors": [
@@ -42,7 +42,7 @@
     },
     "minimum-stability": "stable",
     "prefer-stable": true,
-    "bin": ["aoc2019"],
+    "bin": ["aoc"],
     "scripts": {
         "test": "vendor/bin/pest"
     }

@@ -1,7 +1,9 @@
 <?php
 declare(strict_types=1);
 
-namespace App\AocTasks;
+namespace App\AocTasks\Year2019;
+
+use App\AocTasks\AocTask;
 
 class Day1Part1 extends AocTask
 {

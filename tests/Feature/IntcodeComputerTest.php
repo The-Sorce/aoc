@@ -70,7 +70,7 @@ describe('IntcodeComputer', function () {
 
 });
 
-describe('Day2Part1', function () {
+describe('Year2019Day2Part1', function () {
 
     test('Test case 1', function () {
         $input = '1,9,10,3,2,3,11,0,99,30,40,50';

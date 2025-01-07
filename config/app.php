@@ -13,7 +13,7 @@ return [
     |
     */
 
-    'name' => 'Advent of Code 2019',
+    'name' => 'Advent of Code PHP solutions',
 
     /*
     |--------------------------------------------------------------------------

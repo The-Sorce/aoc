@@ -1,8 +1,9 @@
 <?php
 declare(strict_types=1);
 
-namespace App\AocTasks;
+namespace App\AocTasks\Year2019;
 
+use App\AocTasks\AocTask;
 use App\AocTasks\HelperClasses\IntcodeComputer;
 
 class Day2Part1 extends AocTask

@@ -18,6 +18,7 @@ class RunCommand extends Command
      * @var string
      */
     protected $signature = 'run
+                            {year : The year (2015-2024) of the task (required)}
                             {day : The day (1-25) of the task (required)}
                             {part : The part (1-2) of the task (required)}';
 
@@ -26,31 +27,32 @@ class RunCommand extends Command
      *
      * @var string
      */
-    protected $description = 'Run the task for a specified day and part';
+    protected $description = 'Run the task for a specified year, day and part';
 
     /**
      * Execute the console command.
      */
     public function handle()
     {
+        $year = $this->argument('year');
         $day = $this->argument('day');
         $part = $this->argument('part');
 
         // Instantiate a class for the correct task
-        $className = "App\AocTasks\Day{$day}Part{$part}";
+        $className = "App\AocTasks\Year{$year}\Day{$day}Part{$part}";
         if (!class_exists($className)) {
-            $this->components->error("No task implementation found for day {$day} part {$part}");
+            $this->components->error("No task implementation found for year {$year} day {$day} part {$part}");
             return;
         }
         $task = new $className;
         $dayName = $task->getDayName();
         $partAsText = ($part == 1) ? 'One' : 'Two';
-        $dayBanner = "--- Day {$day}: {$dayName} - Part {$partAsText} ---";
+        $dayBanner = "--- AoC {$year} - Day {$day}: {$dayName} - Part {$partAsText} ---";
         $this->info($dayBanner);
         $this->newLine();
 
         // Read task input from file
-        $inputFile = base_path("/input/d{$day}.data");
+        $inputFile = base_path("/input/{$year}/d{$day}.data");
         $input = trim(File::get($inputFile));
         $task->setInput($input);
 

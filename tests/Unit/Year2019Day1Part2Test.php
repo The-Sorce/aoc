@@ -1,9 +1,9 @@
 <?php
 declare(strict_types=1);
 
-use App\AocTasks\Day1Part2;
+use App\AocTasks\Year2019\Day1Part2;
 
-describe('Day1Part2', function () {
+describe('Year2019Day1Part2', function () {
 
     test('mass 14 requires 2 fuel', function () {
         $task = new Day1Part2();
