@@ -36,12 +36,12 @@ class RunCommand extends Command
         $day = $this->argument('day');
         $part = $this->argument('part');
 
+        // Instantiate a class for the correct task
         $className = "App\AocTasks\Day{$day}Part{$part}";
         if (!class_exists($className)) {
             $this->components->error("No task implementation found for day {$day} part {$part}");
             return;
         }
-
         $task = new $className;
         $dayName = $task->getDayName();
         $partAsText = ($part == 1) ? 'One' : 'Two';
@@ -49,13 +49,15 @@ class RunCommand extends Command
         $this->info($dayBanner);
         $this->newLine();
 
-        // Read input from file
+        // Read task input from file
         $inputFile = base_path("/input/d{$day}.data");
         $input = trim(File::get($inputFile));
         $task->setInput($input);
 
+        // Run the actual task
         $task->run();
 
+        // Print the results from the task
         $resultDescription = $task->getResultDescription();
         $result = $task->getResult();
         render(<<<HTML
@@ -63,6 +65,7 @@ class RunCommand extends Command
         HTML);
         $this->newLine();
 
+        // Print the duration
         $duration = now()->diff(Carbon::createFromTimestamp(LARAVEL_START))->forHumans(['minimumUnit' => 'ms', 'short' => true, 'parts' => 2]);
         $this->comment("Duration: {$duration}");
     }
