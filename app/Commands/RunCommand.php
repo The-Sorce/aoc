@@ -65,6 +65,17 @@ class RunCommand extends Command
         render(<<<HTML
             <div><i>{$resultDescription}:</i> <b><u>{$result}</u></b></div>
         HTML);
+
+        // Check the result against answer file, if one exists
+        $answerFile = base_path("/answers/{$year}/d{$day}p{$part}.data");
+        if (File::exists($answerFile)) {
+            $answer = trim(File::get($answerFile));
+            if ($answer == $result) {
+                $this->comment("Result matches stored answer file.");
+            } else {
+                $this->error("Result differs from stored answer file: {$answer}");
+            }
+        }
         $this->newLine();
 
         // Print the duration
