@@ -4,6 +4,9 @@ namespace App\Commands;
 
 use Illuminate\Console\Scheduling\Schedule;
 use LaravelZero\Framework\Commands\Command;
+use Carbon\Carbon;
+
+use function Termwind\render;
 
 class RunCommand extends Command
 {
@@ -33,7 +36,7 @@ class RunCommand extends Command
 
         $className = "App\AocTasks\Day{$day}Part{$part}";
         if (!class_exists($className)) {
-            $this->error("No task implementation found for day {$day} part {$part}");
+            $this->components->error("No task implementation found for day {$day} part {$part}");
             return;
         }
 
@@ -42,6 +45,7 @@ class RunCommand extends Command
         $partAsText = ($part == 1) ? 'One' : 'Two';
         $dayBanner = "--- Day {$day}: {$dayName} - Part {$partAsText} ---";
         $this->info($dayBanner);
+        $this->newLine();
 
         // Read input from file
         $inputFile = __DIR__ . "/../../input/d{$day}.data";
@@ -52,7 +56,13 @@ class RunCommand extends Command
 
         $resultDescription = $task->getResultDescription();
         $result = $task->getResult();
-        $this->info("{$resultDescription}: {$result}");
+        render(<<<HTML
+            <div><i>{$resultDescription}:</i> <b><u>{$result}</u></b></div>
+        HTML);
+        $this->newLine();
+
+        $duration = now()->diff(Carbon::createFromTimestamp(LARAVEL_START))->forHumans(['minimumUnit' => 'ms', 'short' => true, 'parts' => 2]);
+        $this->comment("Duration: {$duration}");
     }
 
     /**
