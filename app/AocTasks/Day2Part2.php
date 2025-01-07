@@ -16,10 +16,10 @@ class Day2Part2 extends AocTask
         for ($noun = 0; $noun <= 99; $noun++) {
             for ($verb = 0; $verb <= 99; $verb++) {
                 $computer = new IntcodeComputer($this->getInput());
-                $computer->setStatePos(1, $noun);
-                $computer->setStatePos(2, $verb);
+                $computer->setMemoryPos(1, $noun);
+                $computer->setMemoryPos(2, $verb);
                 $computer->run();
-                $output = $computer->getStateAsArray()[0];
+                $output = $computer->getMemoryAsArray()[0];
                 if ($output == $expectedOutput) {
                     $this->setResultDescription('100 * noun + verb');
                     $this->setResult((string)(100 * $noun + $verb));

@@ -11,7 +11,7 @@ describe('Day2Part1', function () {
 
         $computer = new IntcodeComputer($input);
         $computer->run();
-        $state = $computer->getStateAsString();
+        $state = $computer->getMemoryAsString();
         expect($state)->toBe($expectedState);
     });
 
@@ -21,7 +21,7 @@ describe('Day2Part1', function () {
 
         $computer = new IntcodeComputer($input);
         $computer->run();
-        $state = $computer->getStateAsString();
+        $state = $computer->getMemoryAsString();
         expect($state)->toBe($expectedState);
     });
 
@@ -31,7 +31,7 @@ describe('Day2Part1', function () {
 
         $computer = new IntcodeComputer($input);
         $computer->run();
-        $state = $computer->getStateAsString();
+        $state = $computer->getMemoryAsString();
         expect($state)->toBe($expectedState);
     });
 
@@ -41,7 +41,7 @@ describe('Day2Part1', function () {
 
         $computer = new IntcodeComputer($input);
         $computer->run();
-        $state = $computer->getStateAsString();
+        $state = $computer->getMemoryAsString();
         expect($state)->toBe($expectedState);
     });
 
@@ -51,7 +51,7 @@ describe('Day2Part1', function () {
 
         $computer = new IntcodeComputer($input);
         $computer->run();
-        $state = $computer->getStateAsString();
+        $state = $computer->getMemoryAsString();
         expect($state)->toBe($expectedState);
     });
 

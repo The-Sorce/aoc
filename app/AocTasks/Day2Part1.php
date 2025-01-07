@@ -13,13 +13,13 @@ class Day2Part1 extends AocTask
     {
         $computer = new IntcodeComputer($this->getInput());
 
-        $computer->setStatePos(1, 12);
-        $computer->setStatePos(2, 2);
+        $computer->setMemoryPos(1, 12);
+        $computer->setMemoryPos(2, 2);
 
         $computer->run();
 
         $this->setResultDescription('Value left at position 0');
-        $this->setResult((string)$computer->getStateAsArray()[0]);
+        $this->setResult((string)$computer->getMemoryAsArray()[0]);
 
         return $this;
     }

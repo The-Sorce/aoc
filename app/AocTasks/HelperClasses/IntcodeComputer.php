@@ -9,52 +9,52 @@ class IntcodeComputer
     const OPCODE_MULTIPLY = 2;
     const OPCODE_HALT = 99;
 
-    private array $state = [];
+    private array $memory = [];
     private int $instructionPointer = 0;
 
-    function __construct(string $state)
+    function __construct(string $memory)
     {
-        $this->setState($state);
+        $this->setMemory($memory);
     }
 
-    public function getStateAsArray(): array
+    public function getMemoryAsArray(): array
     {
-        return $this->state;
+        return $this->memory;
     }
 
-    public function getStateAsString(): string
+    public function getMemoryAsString(): string
     {
-        $stateString = implode(',', $this->state);
-        return $stateString;
+        $memoryString = implode(',', $this->memory);
+        return $memoryString;
     }
 
-    private function setState(string $state)
+    private function setMemory(string $memory)
     {
-        $this->state = explode(',', $state);
+        $this->memory = explode(',', $memory);
     }
 
-    public function setStatePos(int $position, int $value)
+    public function setMemoryPos(int $position, int $value)
     {
-        $this->state[$position] = $value;
+        $this->memory[$position] = $value;
     }
 
     public function run(): void
     {
         while (true) {
-            $opcode = $this->state[$this->instructionPointer];
+            $opcode = $this->memory[$this->instructionPointer];
             switch ($opcode) {
                 case self::OPCODE_ADD:
-                    $term1 = $this->state[$this->state[++$this->instructionPointer]];
-                    $term2 = $this->state[$this->state[++$this->instructionPointer]];
+                    $term1 = $this->memory[$this->memory[++$this->instructionPointer]];
+                    $term2 = $this->memory[$this->memory[++$this->instructionPointer]];
                     $sum = $term1 + $term2;
-                    $this->state[$this->state[++$this->instructionPointer]] = $sum;
+                    $this->memory[$this->memory[++$this->instructionPointer]] = $sum;
                     $this->instructionPointer++;
                     break;
                 case self::OPCODE_MULTIPLY:
-                    $factor1 = $this->state[$this->state[++$this->instructionPointer]];
-                    $factor2 = $this->state[$this->state[++$this->instructionPointer]];
+                    $factor1 = $this->memory[$this->memory[++$this->instructionPointer]];
+                    $factor2 = $this->memory[$this->memory[++$this->instructionPointer]];
                     $product = $factor1 * $factor2;
-                    $this->state[$this->state[++$this->instructionPointer]] = $product;
+                    $this->memory[$this->memory[++$this->instructionPointer]] = $product;
                     $this->instructionPointer++;
                     break;
                 case self::OPCODE_HALT:
