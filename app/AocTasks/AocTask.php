@@ -61,9 +61,10 @@ abstract class AocTask
     /**
      * Sets the result (after the task has been run).
      */
-    protected function setResult(string $result): void
+    protected function setResult(string $result): AocTask
     {
         $this->result = $result;
+        return $this;
     }
 
     /**
@@ -77,9 +78,10 @@ abstract class AocTask
     /**
      * Sets the result description.
      */
-    protected function setResultDescription(string $resultDescription): void
+    protected function setResultDescription(string $resultDescription): AocTask
     {
         $this->resultDescription = $resultDescription;
+        return $this;
     }
 
     /**
