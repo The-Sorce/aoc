@@ -43,7 +43,7 @@ class IntcodeComputer
         }
     }
 
-    public function setMemoryPos(int $position, int $value)
+    public function setMemoryPos(int $position, int $value): void
     {
         $this->memory[$position] = $value;
     }
