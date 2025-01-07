@@ -42,5 +42,8 @@
     },
     "minimum-stability": "stable",
     "prefer-stable": true,
-    "bin": ["aoc2019"]
+    "bin": ["aoc2019"],
+    "scripts": {
+        "test": "vendor/bin/pest"
+    }
 }
