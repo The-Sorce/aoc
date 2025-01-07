@@ -5,6 +5,7 @@ namespace App\Commands;
 use Illuminate\Console\Scheduling\Schedule;
 use LaravelZero\Framework\Commands\Command;
 use Carbon\Carbon;
+use Illuminate\Support\Facades\File;
 
 use function Termwind\render;
 
@@ -48,8 +49,8 @@ class RunCommand extends Command
         $this->newLine();
 
         // Read input from file
-        $inputFile = __DIR__ . "/../../input/d{$day}.data";
-        $input = trim(file_get_contents($inputFile));
+        $inputFile = base_path("/input/d{$day}.data");
+        $input = trim(File::get($inputFile));
         $task->setInput($input);
 
         $task->run();
