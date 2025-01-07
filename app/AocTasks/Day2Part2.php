@@ -22,7 +22,7 @@ class Day2Part2 extends AocTask
                 $computer->setMemoryPos(2, $verb);
                 $computer->run();
                 $output = $computer->getMemoryAsArray()[0];
-                if ($output == $expectedOutput) {
+                if ($output === $expectedOutput) {
                     $this->setResultDescription('100 * noun + verb');
                     $this->setResult((string)(100 * $noun + $verb));
                     break 2;
