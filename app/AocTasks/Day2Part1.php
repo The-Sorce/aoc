@@ -1,4 +1,5 @@
 <?php
+declare(strict_types=1);
 
 namespace App\AocTasks;
 
@@ -18,7 +19,7 @@ class Day2Part1 extends AocTask
         $computer->run();
 
         $this->setResultDescription('Value left at position 0');
-        $this->setResult($computer->getStateAsArray()[0]);
+        $this->setResult((string)$computer->getStateAsArray()[0]);
 
         return $this;
     }

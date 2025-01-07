@@ -1,4 +1,5 @@
 <?php
+declare(strict_types=1);
 
 namespace App\AocTasks;
 
@@ -22,7 +23,7 @@ class Day1Part2 extends AocTask
         }
         
         $this->setResultDescription('The sum of the fuel requirements');
-        $this->setResult($fuelSum);
+        $this->setResult((string)$fuelSum);
 
         return $this;
     }

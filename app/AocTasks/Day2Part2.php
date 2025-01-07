@@ -1,4 +1,5 @@
 <?php
+declare(strict_types=1);
 
 namespace App\AocTasks;
 
@@ -21,7 +22,7 @@ class Day2Part2 extends AocTask
                 $output = $computer->getStateAsArray()[0];
                 if ($output == $expectedOutput) {
                     $this->setResultDescription('100 * noun + verb');
-                    $this->setResult(100 * $noun + $verb);
+                    $this->setResult((string)(100 * $noun + $verb));
                     break 2;
                 }
             }
