@@ -32,7 +32,12 @@ class IntcodeComputer
 
     public function setMemory(string $memory, bool $resetInstructionPointer = true): void
     {
-        $this->memory = explode(',', $memory);
+        $memoryArray = explode(',', $memory);
+        $this->memory = [];
+        foreach ($memoryArray as $i) {
+            $this->memory[] = (int)$i;
+        }
+
         if ($resetInstructionPointer) {
             $this->instructionPointer = 0;
         }
