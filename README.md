@@ -1,34 +1,15 @@
-<p align="center">
-    <img title="Laravel Zero" height="100" src="https://raw.githubusercontent.com/laravel-zero/docs/master/images/logo/laravel-zero-readme.png" alt="Laravel Zero Logo" />
-</p>
+# Advent of Code 2019 solutions
 
-<p align="center">
-  <a href="https://github.com/laravel-zero/framework/actions"><img src="https://github.com/laravel-zero/laravel-zero/actions/workflows/tests.yml/badge.svg" alt="Build Status" /></a>
-  <a href="https://packagist.org/packages/laravel-zero/framework"><img src="https://img.shields.io/packagist/dt/laravel-zero/framework.svg" alt="Total Downloads" /></a>
-  <a href="https://packagist.org/packages/laravel-zero/framework"><img src="https://img.shields.io/packagist/v/laravel-zero/framework.svg?label=stable" alt="Latest Stable Version" /></a>
-  <a href="https://packagist.org/packages/laravel-zero/framework"><img src="https://img.shields.io/packagist/l/laravel-zero/framework.svg" alt="License" /></a>
-</p>
+This repository includes my own, personal solutions for [Advent of Code 2019](https://adventofcode.com/2019). Everything coded using PHP due to my nature as a mono-lingual one-trick pony. :D
 
-Laravel Zero was created by [Nuno Maduro](https://github.com/nunomaduro) and [Owen Voke](https://github.com/owenvoke), and is a micro-framework that provides an elegant starting point for your console application. It is an **unofficial** and customized version of Laravel optimized for building command-line applications.
+I started solving these older puzzles together with a few friends during the beginning of 2025.
 
-- Built on top of the [Laravel](https://laravel.com) components.
-- Optional installation of Laravel [Eloquent](https://laravel-zero.com/docs/database/), Laravel [Logging](https://laravel-zero.com/docs/logging/) and many others.
-- Supports interactive [menus](https://laravel-zero.com/docs/build-interactive-menus/) and [desktop notifications](https://laravel-zero.com/docs/send-desktop-notifications/) on Linux, Windows & MacOS.
-- Ships with a [Scheduler](https://laravel-zero.com/docs/task-scheduling/) and  a [Standalone Compiler](https://laravel-zero.com/docs/build-a-standalone-application/).
-- Integration with [Collision](https://github.com/nunomaduro/collision) - Beautiful error reporting
+## Framework
 
-------
+This project is built using the unofficial [Laravel Zero](https://laravel-zero.com/) micro-framework created by [Nuno Maduro](https://github.com/nunomaduro) and [Owen Voke](https://github.com/owenvoke) for building command-line applications.
 
-## Documentation
+## Tests
 
-For full documentation, visit [laravel-zero.com](https://laravel-zero.com/).
+As Advent of Code offers good test cases, I have chosen to do a Test-driven development (TDD) approach to these puzzles, using the [Pest](https://pestphp.com/) testing framework.
 
-## Support the development
-**Do you like this project? Support it by donating**
-
-- PayPal: [Donate](https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=66BYDWAT92N6L)
-- Patreon: [Donate](https://www.patreon.com/nunomaduro)
-
-## License
-
-Laravel Zero is an open-source software licensed under the MIT license.
+In other words, the given test cases from AoC have been rewritten as feature or unit tests as applicable, and the puzzle implementation has been written to satisfy these tests. I am striving for close to 100 % code coverage.
