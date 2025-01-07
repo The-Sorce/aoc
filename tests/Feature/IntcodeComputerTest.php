@@ -5,6 +5,34 @@ use App\AocTasks\HelperClasses\IntcodeComputer;
 
 describe('IntcodeComputer', function () {
 
+    it('can get memory as array', function () {
+        $input = '0,11,22,33,44,55';
+        $expectedArray = [0, 11, 22, 33, 44, 55];
+
+        $computer = new IntcodeComputer($input);
+        expect($computer->getMemoryAsArray())->toBe($expectedArray);
+    });
+
+    it('can get memory as string', function () {
+        $input = '0,11,22,33,44,55';
+
+        $computer = new IntcodeComputer($input);
+        expect($computer->getMemoryAsString())->toBe($input);
+    });
+
+    it('can get single memory pos', function () {
+        $input = '0,11,22,33,44,55';
+        $computer = new IntcodeComputer($input);
+        expect($computer->getMemoryPos(3))->toBe(33);
+    });
+
+    it('can set single memory pos', function () {
+        $input = '0,11,22,33,44,55';
+        $computer = new IntcodeComputer($input);
+        $computer->setMemoryPos(3, 66);
+        expect($computer->getMemoryPos(3))->toBe(66);
+    });
+
     it('can add (2 + 3 = 5)', function () {
         $input = '1,5,6,7,99,2,3,0';
         $expectedState = '1,5,6,7,99,2,3,5';

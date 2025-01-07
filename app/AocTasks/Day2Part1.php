@@ -19,7 +19,7 @@ class Day2Part1 extends AocTask
         $computer->run();
 
         $this->setResultDescription('Value left at position 0');
-        $this->setResult((string)$computer->getMemoryAsArray()[0]);
+        $this->setResult((string)$computer->getMemoryPos(0));
 
         return $this;
     }
