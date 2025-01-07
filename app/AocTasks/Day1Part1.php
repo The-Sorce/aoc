@@ -8,10 +8,10 @@ class Day1Part1 extends AocTask
 
     public function run(): AocTask
     {
-        $input_array = explode("\n", $this->getInput());
+        $inputArray = explode("\n", $this->getInput());
 
         $fuel = 0;
-        foreach ($input_array as $i) {
+        foreach ($inputArray as $i) {
             $fuel += floor($i / 3) - 2;
         }
         
