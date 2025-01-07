@@ -12,9 +12,11 @@ class IntcodeComputer
     private array $memory = [];
     private int $instructionPointer = 0;
 
-    function __construct(string $memory)
+    function __construct(string $memory = null)
     {
-        $this->setMemory($memory);
+        if (!is_null($memory)) {
+            $this->setMemory($memory);
+        }
     }
 
     public function getMemoryAsArray(): array
@@ -28,9 +30,12 @@ class IntcodeComputer
         return $memoryString;
     }
 
-    private function setMemory(string $memory)
+    public function setMemory(string $memory, bool $resetInstructionPointer = true): void
     {
         $this->memory = explode(',', $memory);
+        if ($resetInstructionPointer) {
+            $this->instructionPointer = 0;
+        }
     }
 
     public function setMemoryPos(int $position, int $value)

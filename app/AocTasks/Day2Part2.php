@@ -13,9 +13,11 @@ class Day2Part2 extends AocTask
     {
         $expectedOutput = 19690720;
 
+        $computer = new IntcodeComputer();
+
         for ($noun = 0; $noun <= 99; $noun++) {
             for ($verb = 0; $verb <= 99; $verb++) {
-                $computer = new IntcodeComputer($this->getInput());
+                $computer->setMemory($this->getInput());
                 $computer->setMemoryPos(1, $noun);
                 $computer->setMemoryPos(2, $verb);
                 $computer->run();
