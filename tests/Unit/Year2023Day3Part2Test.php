@@ -6,7 +6,7 @@ use App\AocTasks\Year2023\Day3Part2;
 describe('Year2023Day3Part2', function () {
 
     test('Sum of all of the gear ratios in example engine schematic is 467835', function () {
-        $task = new Day3Part2();
+        $solution = new Day3Part2();
         $input = <<<EOL
         467..114..
         ...*......
@@ -19,8 +19,8 @@ describe('Year2023Day3Part2', function () {
         ...$.*....
         .664.598..
         EOL;
-        $result = $task->setInput($input)->run()->getResult();
-        expect($result)->toBe('467835');
+        $answer = $solution->setPuzzleInput($input)->solve()->getPuzzleAnswer();
+        expect($answer)->toBe('467835');
     });
 
 });

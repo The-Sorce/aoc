@@ -6,37 +6,37 @@ use App\AocTasks\Year2015\Day5Part1;
 describe('Year2015Day5Part1', function () {
 
     test('The string ugknbfddgicrmopn is nice', function () {
-        $task = new Day5Part1();
-        $result = $task->setInput('ugknbfddgicrmopn')->run()->getResult();
-        expect($result)->toBe('1');
+        $solution = new Day5Part1();
+        $answer = $solution->setPuzzleInput('ugknbfddgicrmopn')->solve()->getPuzzleAnswer();
+        expect($answer)->toBe('1');
     });
 
     test('The string aaa is nice', function () {
-        $task = new Day5Part1();
-        $result = $task->setInput('aaa')->run()->getResult();
-        expect($result)->toBe('1');
+        $solution = new Day5Part1();
+        $answer = $solution->setPuzzleInput('aaa')->solve()->getPuzzleAnswer();
+        expect($answer)->toBe('1');
     });
 
     test('The string jchzalrnumimnmhp is naughty', function () {
-        $task = new Day5Part1();
-        $result = $task->setInput('jchzalrnumimnmhp')->run()->getResult();
-        expect($result)->toBe('0');
+        $solution = new Day5Part1();
+        $answer = $solution->setPuzzleInput('jchzalrnumimnmhp')->solve()->getPuzzleAnswer();
+        expect($answer)->toBe('0');
     });
 
     test('The string haegwjzuvuyypxyu is naughty', function () {
-        $task = new Day5Part1();
-        $result = $task->setInput('haegwjzuvuyypxyu')->run()->getResult();
-        expect($result)->toBe('0');
+        $solution = new Day5Part1();
+        $answer = $solution->setPuzzleInput('haegwjzuvuyypxyu')->solve()->getPuzzleAnswer();
+        expect($answer)->toBe('0');
     });
 
     test('The string dvszwmarrgswjxmb is naughty', function () {
-        $task = new Day5Part1();
-        $result = $task->setInput('dvszwmarrgswjxmb')->run()->getResult();
-        expect($result)->toBe('0');
+        $solution = new Day5Part1();
+        $answer = $solution->setPuzzleInput('dvszwmarrgswjxmb')->solve()->getPuzzleAnswer();
+        expect($answer)->toBe('0');
     });
 
     test('Two of the five example strings are nice', function () {
-        $task = new Day5Part1();
+        $solution = new Day5Part1();
         $input = <<<EOL
         ugknbfddgicrmopn
         aaa
@@ -44,8 +44,8 @@ describe('Year2015Day5Part1', function () {
         haegwjzuvuyypxyu
         dvszwmarrgswjxmb
         EOL;
-        $result = $task->setInput($input)->run()->getResult();
-        expect($result)->toBe('2');
+        $answer = $solution->setPuzzleInput($input)->solve()->getPuzzleAnswer();
+        expect($answer)->toBe('2');
     });
 
 });

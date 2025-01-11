@@ -6,7 +6,7 @@ use App\AocTasks\Year2023\Day4Part2;
 describe('Year2023Day4Part2', function () {
 
     test('The example pile becomes a total of 30 scratchcards', function () {
-        $task = new Day4Part2();
+        $solution = new Day4Part2();
         $input = <<<EOL
         Card 1: 41 48 83 86 17 | 83 86  6 31 17  9 48 53
         Card 2: 13 32 20 16 61 | 61 30 68 82 17 32 24 19
@@ -15,8 +15,8 @@ describe('Year2023Day4Part2', function () {
         Card 5: 87 83 26 28 32 | 88 30 70 12 93 22 82 36
         Card 6: 31 18 13 56 72 | 74 77 10 23 35 67 36 11
         EOL;
-        $result = $task->setInput($input)->run()->getResult();
-        expect($result)->toBe('30');
+        $answer = $solution->setPuzzleInput($input)->solve()->getPuzzleAnswer();
+        expect($answer)->toBe('30');
     });
 
 });

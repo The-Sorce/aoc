@@ -6,7 +6,7 @@ use App\AocTasks\Year2023\Day3Part1;
 describe('Year2023Day3Part1', function () {
 
     test('Sum of part numbers for example engine schematic is 4361', function () {
-        $task = new Day3Part1();
+        $solution = new Day3Part1();
         $input = <<<EOL
         467..114..
         ...*......
@@ -19,8 +19,8 @@ describe('Year2023Day3Part1', function () {
         ...$.*....
         .664.598..
         EOL;
-        $result = $task->setInput($input)->run()->getResult();
-        expect($result)->toBe('4361');
+        $answer = $solution->setPuzzleInput($input)->solve()->getPuzzleAnswer();
+        expect($answer)->toBe('4361');
     });
 
 });

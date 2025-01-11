@@ -6,7 +6,7 @@ use App\AocTasks\Year2023\Day5Part1;
 describe('Year2023Day5Part1', function () {
 
     test('The lowest location number for the example is 35', function () {
-        $task = new Day5Part1();
+        $solution = new Day5Part1();
         $input = <<<EOL
         seeds: 79 14 55 13
 
@@ -42,8 +42,8 @@ describe('Year2023Day5Part1', function () {
         60 56 37
         56 93 4
         EOL;
-        $result = $task->setInput($input)->run()->getResult();
-        expect($result)->toBe('35');
+        $answer = $solution->setPuzzleInput($input)->solve()->getPuzzleAnswer();
+        expect($answer)->toBe('35');
     });
 
 });
