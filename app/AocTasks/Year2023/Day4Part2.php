@@ -40,10 +40,10 @@ class Day4Part2 extends Puzzle
             for ($j = 1; $j <= count($winning_numbers_held); $j++) {
                 addCardInstances($card_number + $j, $card_instances, $card_instance_counters);
             }
-            echo "Card {$card_number} ({$card_instances} instances) has " . count($winning_numbers_held) . " winning numbers.\n";
+            $this->debug("Card {$card_number} ({$card_instances} instances) has " . count($winning_numbers_held) . " winning numbers.");
             $no_scratchcards_total += $card_instances;
         }
-        echo "\n";
+        $this->debug('');
 
         $this->setPuzzleAnswer((string)$no_scratchcards_total);
 

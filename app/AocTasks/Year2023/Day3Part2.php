@@ -30,7 +30,7 @@ class Day3Part2 extends Puzzle
                 $part_number = $match[0];
                 $start_x = $match[1];
                 $end_x = $start_x + strlen($part_number) - 1;
-                echo "Number found: {$part_number} at x={$start_x}-{$end_x},y={$y}\n";
+                $this->debug("Number found: {$part_number} at x={$start_x}-{$end_x},y={$y}");
 
                 $adjacent_cells = [];
                 for ($x = $start_x; $x <= $end_x; $x++) {
@@ -48,7 +48,7 @@ class Day3Part2 extends Puzzle
                         $gear_candidates[$gear_candidates_key] = [];
                     }
                     $gear_candidates[$gear_candidates_key][] = $part_number;
-                    echo "Marking part number {$part_number} for gear candidate at {$gear_candidates_key}\n";
+                    $this->debug("Marking part number {$part_number} for gear candidate at {$gear_candidates_key}");
                 }
             }
         }
@@ -59,7 +59,7 @@ class Day3Part2 extends Puzzle
                 $sum += array_product($numbers);
             }
         }
-        echo "\n";
+        $this->debug('');
 
         $this->setPuzzleAnswer((string)$sum);
 

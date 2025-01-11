@@ -30,21 +30,21 @@ class Day3Part1 extends Puzzle
                 $part_number = $match[0];
                 $start_x = $match[1];
                 $end_x = $start_x + strlen($part_number) - 1;
-                echo "Number found: {$part_number} at x={$start_x}-{$end_x},y={$y}";
+                $this->debug("Number found: {$part_number} at x={$start_x}-{$end_x},y={$y}");
 
                 for ($x = $start_x; $x <= $end_x; $x++) {
                     $grid->setPos($x, $y);
                     if (!empty($grid->findInAdjacentCellsRegex('/[^\.\d]/', true))) {
                         // Adjacent to some sort of symbol
-                        echo ", adjacent to a symbol\n";
+                        $this->debug('- adjacent to a symbol');
                         $sum += $part_number;
                         continue 2;
                     }
                 }
-                echo ", not adjacent to any symbol\n";
+                $this->debug('- not adjacent to any symbol');
             }
         }
-        echo "\n";
+        $this->debug('');
 
         $this->setPuzzleAnswer((string)$sum);
 

@@ -26,10 +26,10 @@ class Day4Part1 extends Puzzle
             if ($points > 2) {
                 $points = pow(2, $points-1);
             }
-            echo "Card {$card_number} has " . count($winning_numbers_held) . " winning numbers and is worth {$points} points.\n";
+            $this->debug("Card {$card_number} has " . count($winning_numbers_held) . " winning numbers and is worth {$points} points.");
             $points_total += $points;
         }
-        echo "\n";
+        $this->debug('');
 
         $this->setPuzzleAnswer((string)$points_total);
 

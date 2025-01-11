@@ -30,13 +30,13 @@ class Day6Part2 extends Puzzle
         $win_scenario_count = 0;
 
         for ($charge_ms = 1; $charge_ms < $time; $charge_ms++) {
-            echo "Calculating scenario {$charge_ms}/{$time} (" . round(($charge_ms/$time)*100, 1) . "% done)\n";
+            $this->debug("Calculating scenario {$charge_ms}/{$time} (" . round(($charge_ms/$time)*100, 1) . "% done)");
             $distance = ($time - $charge_ms) * $charge_ms;
             if ($distance > $record_distance) {
                 $win_scenario_count++;
             }
         }
-        echo "\n";
+        $this->debug('');
 
         $this->setPuzzleAnswer((string)$win_scenario_count);
 

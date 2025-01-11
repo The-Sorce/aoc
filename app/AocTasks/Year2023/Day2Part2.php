@@ -31,10 +31,10 @@ class Day2Part2 extends Puzzle
                 }
             }
             $power = $red_min * $green_min * $blue_min;
-            echo "Game {$game_number} requires a minimum of {$red_min} red, {$green_min} green, {$blue_min} blue cubes. Power = {$power}\n";
+            $this->debug("Game {$game_number} requires a minimum of {$red_min} red, {$green_min} green, {$blue_min} blue cubes. Power = {$power}");
             $power_sum += $power;
         }
-        echo "\n";
+        $this->debug('');
 
         $this->setPuzzleAnswer((string)$power_sum);
 

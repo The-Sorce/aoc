@@ -73,11 +73,11 @@ class Day5Part1 extends Puzzle
             ksort($maps[$map_type]);
         }
 
-        echo "Input parsed.\n\n";
+        $this->debug("Input parsed\n");
 
         $location_numbers = [];
         foreach ($seeds as $i => $seed) {
-            echo "Traversing seed number {$i} = {$seed}:\n";
+            $this->debug("Traversing seed number {$i} = {$seed}:");
             $number = (int)$seed;
 
             foreach($map_types as $map_type) {
@@ -85,16 +85,16 @@ class Day5Part1 extends Puzzle
                     if (($number >= $range['source_range_start']) && ($number <= $range['source_range_start'] + $range['range_length'] - 1)) {
                         $offset = $number - $range['source_range_start'];
                         $dest = $range['dest_range_start'] + $offset;
-                        echo "{$map_type}: {$number} maps to {$dest}\n";
+                        $this->debug("{$map_type}: {$number} maps to {$dest}");
                         $number = $dest;
                         continue 2;
                     }
                 }
-                echo "{$map_type}: no remapping for {$number}\n";
+                $this->debug("{$map_type}: no remapping for {$number}");
             }
-            echo "Location number for seed number {$i} = {$number}\n";
+            $this->debug("Location number for seed number {$i} = {$number}");
             $location_numbers[$i] = $number;
-            echo "\n";
+            $this->debug('');
         }
 
         $this->setPuzzleAnswer((string)min($location_numbers));

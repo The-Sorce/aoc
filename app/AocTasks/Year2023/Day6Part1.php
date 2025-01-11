@@ -29,11 +29,11 @@ class Day6Part1 extends Puzzle
 
         $races_count = count($times);
 
-        echo "Parsed {$races_count} races from input.\n\n";
+        $this->debug("Parsed {$races_count} races from input.\n");
 
         $product_win_scenario_counts = 1;
         for ($i = 0; $i < $races_count; $i++) {
-            echo "Calculating win conditions for race {$i}...\n";
+            $this->debug("Calculating win conditions for race {$i}...");
 
             $time = $times[$i];
             $record_distance = $distances[$i];
@@ -47,7 +47,7 @@ class Day6Part1 extends Puzzle
                 }
             }
 
-            echo "Found {$win_scenario_count} different ways to beat the record for race {$i}.\n\n";
+            $this->debug("Found {$win_scenario_count} different ways to beat the record for race {$i}.\n");
 
             $product_win_scenario_counts *= $win_scenario_count;
         }

@@ -29,15 +29,15 @@ class Day2Part1 extends Puzzle
                 foreach ($subset_matches[1] as $j => $no_color_cubes) {
                     if ($no_color_cubes > ${$subset_matches[2][$j].'_max'}) {
                         // impossible game, skip
-                        echo "Game {$game_number} is impossible.\n";
+                        $this->debug("Game {$game_number} is impossible.");
                         continue 3;
                     }
                 }
             }
-            echo "Game {$game_number} is possible.\n";
+            $this->debug("Game {$game_number} is possible.");
             $possible_games_sum += $game_number;
         }
-        echo "\n";
+        $this->debug('');
 
         $this->setPuzzleAnswer((string)$possible_games_sum);
 
