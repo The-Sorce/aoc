@@ -3,19 +3,20 @@ declare(strict_types=1);
 
 namespace App\AocTasks\Year2015;
 
-use App\AocTasks\AocTask;
+use NorthernBytes\AocHelper\Puzzle;
 
-class Day4Part2 extends AocTask
+class Day4Part2 extends Puzzle
 {
-    protected $dayName = 'The Ideal Stocking Stuffer';
+    protected string $puzzleName = 'The Ideal Stocking Stuffer';
 
-    public function run(): AocTask
+    protected string $puzzleAnswerDescription = 'The lowest number to produce a hash beginning with six zeroes';
+
+    public function solve(): Puzzle
     {
         $i = 0;
-        while (!str_starts_with(md5($this->getInput() . $i), '000000')) $i++;
+        while (!str_starts_with(md5($this->getPuzzleInput() . $i), '000000')) $i++;
 
-        $this->setResultDescription('The lowest number to produce a hash beginning with six zeroes');
-        $this->setResult((string)$i);
+        $this->setPuzzleAnswer((string)$i);
 
         return $this;
     }

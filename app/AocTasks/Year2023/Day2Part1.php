@@ -3,15 +3,17 @@ declare(strict_types=1);
 
 namespace App\AocTasks\Year2023;
 
-use App\AocTasks\AocTask;
+use NorthernBytes\AocHelper\Puzzle;
 
-class Day2Part1 extends AocTask
+class Day2Part1 extends Puzzle
 {
-    protected $dayName = 'Cube Conundrum';
+    protected string $puzzleName = 'Cube Conundrum';
 
-    public function run(): AocTask
+    protected string $puzzleAnswerDescription = 'Sum of the IDs of all possible games';
+
+    public function solve(): Puzzle
     {
-        $input = $this->getInput();
+        $input = $this->getPuzzleInput();
 
         $red_max = 12;
         $green_max = 13;
@@ -37,8 +39,7 @@ class Day2Part1 extends AocTask
         }
         echo "\n";
 
-        $this->setResultDescription('Sum of the IDs of all possible games');
-        $this->setResult((string)$possible_games_sum);
+        $this->setPuzzleAnswer((string)$possible_games_sum);
 
         return $this;
     }

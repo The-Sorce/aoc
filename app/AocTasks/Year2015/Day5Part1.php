@@ -3,15 +3,17 @@ declare(strict_types=1);
 
 namespace App\AocTasks\Year2015;
 
-use App\AocTasks\AocTask;
+use NorthernBytes\AocHelper\Puzzle;
 
-class Day5Part1 extends AocTask
+class Day5Part1 extends Puzzle
 {
-    protected $dayName = "Doesn't He Have Intern-Elves For This?";
+    protected string $puzzleName = "Doesn't He Have Intern-Elves For This?";
 
-    public function run(): AocTask
+    protected string $puzzleAnswerDescription = 'The total number of nice strings';
+
+    public function solve(): Puzzle
     {
-        $inputArray = explode("\n", $this->getInput());
+        $inputArray = explode("\n", $this->getPuzzleInput());
         $niceStrings = 0;
 
         foreach ($inputArray as $string) {
@@ -28,8 +30,7 @@ class Day5Part1 extends AocTask
             $niceStrings++;
         }
 
-        $this->setResultDescription('The total number of nice strings');
-        $this->setResult((string)$niceStrings);
+        $this->setPuzzleAnswer((string)$niceStrings);
 
         return $this;
     }

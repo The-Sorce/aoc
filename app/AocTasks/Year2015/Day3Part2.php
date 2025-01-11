@@ -3,15 +3,17 @@ declare(strict_types=1);
 
 namespace App\AocTasks\Year2015;
 
-use App\AocTasks\AocTask;
+use NorthernBytes\AocHelper\Puzzle;
 
-class Day3Part2 extends AocTask
+class Day3Part2 extends Puzzle
 {
-    protected $dayName = 'Perfectly Spherical Houses in a Vacuum';
+    protected string $puzzleName = 'Perfectly Spherical Houses in a Vacuum';
 
-    public function run(): AocTask
+    protected string $puzzleAnswerDescription = 'Number of houses that receive at least one present';
+
+    public function solve(): Puzzle
     {
-        $inputArray = str_split($this->getInput());
+        $inputArray = str_split($this->getPuzzleInput());
 
         $movesArray = [];
         for ($i = 0; $i < count($inputArray); $i++) {
@@ -42,8 +44,7 @@ class Day3Part2 extends AocTask
             }    
         }
 
-        $this->setResultDescription('Number of houses that receive at least one present');
-        $this->setResult((string)count($visitedHouses));
+        $this->setPuzzleAnswer((string)count($visitedHouses));
 
         return $this;
     }

@@ -3,23 +3,24 @@ declare(strict_types=1);
 
 namespace App\AocTasks\Year2015;
 
-use App\AocTasks\AocTask;
+use NorthernBytes\AocHelper\Puzzle;
 
-class Day10Part1 extends AocTask
+class Day10Part1 extends Puzzle
 {
-    protected $dayName = 'Elves Look, Elves Say';
+    protected string $puzzleName = 'Elves Look, Elves Say';
 
-    public function run(): AocTask
+    protected string $puzzleAnswerDescription = 'The length of the result after 40 rounds of look-and-say';
+
+    public function solve(): Puzzle
     {
-        $input = $this->getInput();
+        $input = $this->getPuzzleInput();
 
         // TODO: This is way too slow, implement something smarter using memoization or similar...
         for ($i = 1; $i <= 40; $i++) {
             $input = $this->lookAndSay($input);
         }
 
-        $this->setResultDescription('The length of the result after 40 rounds of look-and-say');
-        $this->setResult((string)strlen($input));
+        $this->setPuzzleAnswer((string)strlen($input));
 
         return $this;
     }

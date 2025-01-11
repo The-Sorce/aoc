@@ -3,18 +3,20 @@ declare(strict_types=1);
 
 namespace App\AocTasks\Year2015;
 
-use App\AocTasks\AocTask;
+use NorthernBytes\AocHelper\Puzzle;
 
-class Day7Part2 extends AocTask
+class Day7Part2 extends Puzzle
 {
-    protected $dayName = 'Some Assembly Required';
+    protected string $puzzleName = 'Some Assembly Required';
+
+    protected string $puzzleAnswerDescription = 'Signal provided to wire a';
 
     private array $wires = [];
     private array $wiresMemoized = [];
 
-    public function run(): AocTask
+    public function solve(): Puzzle
     {
-        $inputArray = explode("\n", $this->getInput());
+        $inputArray = explode("\n", $this->getPuzzleInput());
 
         foreach ($inputArray as $wireDefinition) {
             $parts = explode(' -> ', $wireDefinition);
@@ -24,8 +26,7 @@ class Day7Part2 extends AocTask
         $this->wires['b'] = (string)$this->getSignalForWire('a');
         $this->wiresMemoized = [];
 
-        $this->setResultDescription('Signal provided to wire a');
-        $this->setResult((string)$this->getSignalForWire('a'));
+        $this->setPuzzleAnswer((string)$this->getSignalForWire('a'));
 
         return $this;
     }

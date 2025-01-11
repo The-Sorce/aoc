@@ -3,15 +3,17 @@ declare(strict_types=1);
 
 namespace App\AocTasks\Year2023;
 
-use App\AocTasks\AocTask;
+use NorthernBytes\AocHelper\Puzzle;
 
-class Day6Part1 extends AocTask
+class Day6Part1 extends Puzzle
 {
-    protected $dayName = 'Wait For It';
+    protected string $puzzleName = 'Wait For It';
 
-    public function run(): AocTask
+    protected string $puzzleAnswerDescription = 'All win scenario numbers multiplied together';
+
+    public function solve(): Puzzle
     {
-        $input = $this->getInput();
+        $input = $this->getPuzzleInput();
 
         $input = preg_replace('/ +/', ' ', $input);
 
@@ -50,8 +52,7 @@ class Day6Part1 extends AocTask
             $product_win_scenario_counts *= $win_scenario_count;
         }
 
-        $this->setResultDescription('All win scenario numbers multiplied together');
-        $this->setResult((string)$product_win_scenario_counts);
+        $this->setPuzzleAnswer((string)$product_win_scenario_counts);
 
         return $this;
     }

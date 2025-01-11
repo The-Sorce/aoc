@@ -3,15 +3,17 @@ declare(strict_types=1);
 
 namespace App\AocTasks\Year2023;
 
-use App\AocTasks\AocTask;
+use NorthernBytes\AocHelper\Puzzle;
 
-class Day2Part2 extends AocTask
+class Day2Part2 extends Puzzle
 {
-    protected $dayName = 'Cube Conundrum';
+    protected string $puzzleName = 'Cube Conundrum';
 
-    public function run(): AocTask
+    protected string $puzzleAnswerDescription = 'Sum of the power of the sets';
+
+    public function solve(): Puzzle
     {
-        $input = $this->getInput();
+        $input = $this->getPuzzleInput();
 
         preg_match_all('/Game (\d+): (.*)/', $input, $matches);
 
@@ -34,8 +36,7 @@ class Day2Part2 extends AocTask
         }
         echo "\n";
 
-        $this->setResultDescription('Sum of the power of the sets');
-        $this->setResult((string)$power_sum);
+        $this->setPuzzleAnswer((string)$power_sum);
 
         return $this;
     }

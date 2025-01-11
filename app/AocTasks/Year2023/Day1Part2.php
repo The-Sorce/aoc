@@ -3,15 +3,17 @@ declare(strict_types=1);
 
 namespace App\AocTasks\Year2023;
 
-use App\AocTasks\AocTask;
+use NorthernBytes\AocHelper\Puzzle;
 
-class Day1Part2 extends AocTask
+class Day1Part2 extends Puzzle
 {
-    protected $dayName = 'Trebuchet?!';
+    protected string $puzzleName = 'Trebuchet?!';
 
-    public function run(): AocTask
+    protected string $puzzleAnswerDescription = 'Sum of calibration values';
+
+    public function solve(): Puzzle
     {
-        $input = $this->getInput();
+        $input = $this->getPuzzleInput();
 
         preg_match_all('/(\d|one|two|three|four|five|six|seven|eight|nine).*/', $input, $first_no_matches);
         preg_match_all('/.*(\d|one|two|three|four|five|six|seven|eight|nine)/', $input, $last_no_matches);
@@ -41,8 +43,7 @@ class Day1Part2 extends AocTask
             $sum += (int)"{$first_no}{$last_no}";
         }
 
-        $this->setResultDescription('Sum of calibration values');
-        $this->setResult((string)$sum);
+        $this->setPuzzleAnswer((string)$sum);
 
         return $this;
     }

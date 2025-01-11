@@ -3,18 +3,19 @@ declare(strict_types=1);
 
 namespace App\AocTasks\Year2015;
 
-use App\AocTasks\AocTask;
+use NorthernBytes\AocHelper\Puzzle;
 
-class Day12Part1 extends AocTask
+class Day12Part1 extends Puzzle
 {
-    protected $dayName = 'JSAbacusFramework.io';
+    protected string $puzzleName = 'JSAbacusFramework.io';
 
-    public function run(): AocTask
+    protected string $puzzleAnswerDescription = 'The sum of all numbers in the document';
+
+    public function solve(): Puzzle
     {
-        preg_match_all('/-?[0-9]+/', $this->getInput(), $matches);
+        preg_match_all('/-?[0-9]+/', $this->getPuzzleInput(), $matches);
 
-        $this->setResultDescription('The sum of all numbers in the document');
-        $this->setResult((string)array_sum($matches[0]));
+        $this->setPuzzleAnswer((string)array_sum($matches[0]));
 
         return $this;
     }

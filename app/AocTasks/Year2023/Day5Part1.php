@@ -3,15 +3,17 @@ declare(strict_types=1);
 
 namespace App\AocTasks\Year2023;
 
-use App\AocTasks\AocTask;
+use NorthernBytes\AocHelper\Puzzle;
 
-class Day5Part1 extends AocTask
+class Day5Part1 extends Puzzle
 {
-    protected $dayName = 'If You Give A Seed A Fertilizer';
+    protected string $puzzleName = 'If You Give A Seed A Fertilizer';
 
-    public function run(): AocTask
+    protected string $puzzleAnswerDescription = 'Lowest location number';
+
+    public function solve(): Puzzle
     {
-        $input = $this->getInput();
+        $input = $this->getPuzzleInput();
 
         $pattern = <<<EOL
         seeds: (?P<seeds>\d.*\d)
@@ -95,8 +97,7 @@ class Day5Part1 extends AocTask
             echo "\n";
         }
 
-        $this->setResultDescription('Lowest location number');
-        $this->setResult((string)min($location_numbers));
+        $this->setPuzzleAnswer((string)min($location_numbers));
 
         return $this;
     }

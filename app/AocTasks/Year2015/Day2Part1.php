@@ -3,15 +3,17 @@ declare(strict_types=1);
 
 namespace App\AocTasks\Year2015;
 
-use App\AocTasks\AocTask;
+use NorthernBytes\AocHelper\Puzzle;
 
-class Day2Part1 extends AocTask
+class Day2Part1 extends Puzzle
 {
-    protected $dayName = 'I Was Told There Would Be No Math';
+    protected string $puzzleName = 'I Was Told There Would Be No Math';
 
-    public function run(): AocTask
+    protected string $puzzleAnswerDescription = 'Total square feet of wrapping paper required';
+
+    public function solve(): Puzzle
     {
-        $inputArray = explode("\n", $this->getInput());
+        $inputArray = explode("\n", $this->getPuzzleInput());
 
         $sum = 0;
         foreach ($inputArray as $row) {
@@ -26,8 +28,7 @@ class Day2Part1 extends AocTask
             $sum += $surfaceArea + $slack;
         }
 
-        $this->setResultDescription('Total square feet of wrapping paper required');
-        $this->setResult((string)$sum);
+        $this->setPuzzleAnswer((string)$sum);
 
         return $this;
     }

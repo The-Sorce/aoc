@@ -3,15 +3,17 @@ declare(strict_types=1);
 
 namespace App\AocTasks\Year2023;
 
-use App\AocTasks\AocTask;
+use NorthernBytes\AocHelper\Puzzle;
 
-class Day6Part2 extends AocTask
+class Day6Part2 extends Puzzle
 {
-    protected $dayName = 'Wait For It';
+    protected string $puzzleName = 'Wait For It';
 
-    public function run(): AocTask
+    protected string $puzzleAnswerDescription = 'Number of different ways to beat the record for the race';
+
+    public function solve(): Puzzle
     {
-        $input = $this->getInput();
+        $input = $this->getPuzzleInput();
 
         $input = preg_replace('/ /', '', $input);
 
@@ -36,8 +38,7 @@ class Day6Part2 extends AocTask
         }
         echo "\n";
 
-        $this->setResultDescription('Number of different ways to beat the record for the race');
-        $this->setResult((string)$win_scenario_count);
+        $this->setPuzzleAnswer((string)$win_scenario_count);
 
         return $this;
     }

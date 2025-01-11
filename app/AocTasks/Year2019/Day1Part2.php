@@ -3,15 +3,17 @@ declare(strict_types=1);
 
 namespace App\AocTasks\Year2019;
 
-use App\AocTasks\AocTask;
+use NorthernBytes\AocHelper\Puzzle;
 
-class Day1Part2 extends AocTask
+class Day1Part2 extends Puzzle
 {
-    protected $dayName = 'The Tyranny of the Rocket Equation';
+    protected string $puzzleName = 'The Tyranny of the Rocket Equation';
 
-    public function run(): AocTask
+    protected string $puzzleAnswerDescription = 'The sum of the fuel requirements';
+
+    public function solve(): Puzzle
     {
-        $inputArray = explode("\n", $this->getInput());
+        $inputArray = explode("\n", $this->getPuzzleInput());
 
         $fuelSum = 0;
         foreach ($inputArray as $i) {
@@ -24,8 +26,7 @@ class Day1Part2 extends AocTask
             }
         }
         
-        $this->setResultDescription('The sum of the fuel requirements');
-        $this->setResult((string)$fuelSum);
+        $this->setPuzzleAnswer((string)$fuelSum);
 
         return $this;
     }

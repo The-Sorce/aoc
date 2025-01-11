@@ -3,24 +3,25 @@ declare(strict_types=1);
 
 namespace App\AocTasks\Year2019;
 
-use App\AocTasks\AocTask;
 use App\AocTasks\HelperClasses\IntcodeComputer;
+use NorthernBytes\AocHelper\Puzzle;
 
-class Day2Part1 extends AocTask
+class Day2Part1 extends Puzzle
 {
-    protected $dayName = '1202 Program Alarm';
+    protected string $puzzleName = '1202 Program Alarm';
 
-    public function run(): AocTask
+    protected string $puzzleAnswerDescription = 'Value left at position 0';
+
+    public function solve(): Puzzle
     {
-        $computer = new IntcodeComputer($this->getInput());
+        $computer = new IntcodeComputer($this->getPuzzleInput());
 
         $computer->setMemoryPos(1, 12);
         $computer->setMemoryPos(2, 2);
 
         $computer->run();
 
-        $this->setResultDescription('Value left at position 0');
-        $this->setResult((string)$computer->getMemoryPos(0));
+        $this->setPuzzleAnswer((string)$computer->getMemoryPos(0));
 
         return $this;
     }

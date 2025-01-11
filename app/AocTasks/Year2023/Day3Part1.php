@@ -3,17 +3,19 @@ declare(strict_types=1);
 
 namespace App\AocTasks\Year2023;
 
-use App\AocTasks\AocTask;
 use App\AocTasks\HelperClasses\Grid;
 use App\AocTasks\HelperClasses\MultiarrayFunctions;
+use NorthernBytes\AocHelper\Puzzle;
 
-class Day3Part1 extends AocTask
+class Day3Part1 extends Puzzle
 {
-    protected $dayName = 'Gear Ratios';
+    protected string $puzzleName = 'Gear Ratios';
 
-    public function run(): AocTask
+    protected string $puzzleAnswerDescription = 'Sum of part numbers';
+
+    public function solve(): Puzzle
     {
-        $input = $this->getInput();
+        $input = $this->getPuzzleInput();
 
         $input_array = MultiarrayFunctions::text_to_multiarray($input);
 
@@ -44,8 +46,7 @@ class Day3Part1 extends AocTask
         }
         echo "\n";
 
-        $this->setResultDescription('Sum of part numbers');
-        $this->setResult((string)$sum);
+        $this->setPuzzleAnswer((string)$sum);
 
         return $this;
     }

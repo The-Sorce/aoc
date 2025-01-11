@@ -3,15 +3,17 @@ declare(strict_types=1);
 
 namespace App\AocTasks\Year2023;
 
-use App\AocTasks\AocTask;
+use NorthernBytes\AocHelper\Puzzle;
 
-class Day4Part1 extends AocTask
+class Day4Part1 extends Puzzle
 {
-    protected $dayName = 'Scratchcards';
+    protected string $puzzleName = 'Scratchcards';
 
-    public function run(): AocTask
+    protected string $puzzleAnswerDescription = 'Points in total';
+
+    public function solve(): Puzzle
     {
-        $input = $this->getInput();
+        $input = $this->getPuzzleInput();
 
         preg_match_all('/Card +(\d+): +(\d.*\d) \| +(\d.*\d)/', $input, $matches);
 
@@ -29,8 +31,7 @@ class Day4Part1 extends AocTask
         }
         echo "\n";
 
-        $this->setResultDescription('Points in total');
-        $this->setResult((string)$points_total);
+        $this->setPuzzleAnswer((string)$points_total);
 
         return $this;
     }
