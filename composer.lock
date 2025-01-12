@@ -2452,12 +2452,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/nbtshq/aochelper.git",
-                "reference": "8082fafa3183ba75917f4a6f838b4cd771069bde"
+                "reference": "41a408b8dec773ac5d71a0a86326a64c33f3b323"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/nbtshq/aochelper/zipball/8082fafa3183ba75917f4a6f838b4cd771069bde",
-                "reference": "8082fafa3183ba75917f4a6f838b4cd771069bde",
+                "url": "https://api.github.com/repos/nbtshq/aochelper/zipball/41a408b8dec773ac5d71a0a86326a64c33f3b323",
+                "reference": "41a408b8dec773ac5d71a0a86326a64c33f3b323",
                 "shasum": ""
             },
             "require": {
@@ -2515,9 +2515,12 @@
             "description": "Advent of Code Helper",
             "homepage": "https://github.com/nbtshq/aochelper",
             "keywords": [
-                "NorthernBytes",
+                "aoc",
                 "aochelper",
-                "laravel"
+                "cli",
+                "console",
+                "laravel",
+                "puzzle"
             ],
             "support": {
                 "issues": "https://github.com/nbtshq/aochelper/issues",
@@ -2525,11 +2528,11 @@
             },
             "funding": [
                 {
-                    "url": "https://github.com/NorthernBytes",
+                    "url": "https://github.com/nbtshq",
                     "type": "github"
                 }
             ],
-            "time": "2025-01-12T09:32:09+00:00"
+            "time": "2025-01-12T10:56:26+00:00"
         },
         {
             "name": "nesbot/carbon",
