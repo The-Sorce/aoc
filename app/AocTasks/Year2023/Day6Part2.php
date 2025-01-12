@@ -29,14 +29,18 @@ class Day6Part2 extends Puzzle
 
         $win_scenario_count = 0;
 
+        $this->line("Calculating scenarios...");
+        $progressBar = $this->output->createProgressBar($time);
+        $progressBar->start();
         for ($charge_ms = 1; $charge_ms < $time; $charge_ms++) {
-            $this->debug("Calculating scenario {$charge_ms}/{$time} (" . round(($charge_ms/$time)*100, 1) . "% done)");
             $distance = ($time - $charge_ms) * $charge_ms;
             if ($distance > $record_distance) {
                 $win_scenario_count++;
             }
+            $progressBar->advance();
         }
-        $this->debug('');
+        $progressBar->finish();
+        $this->line("\n");
 
         $this->setPuzzleAnswer((string)$win_scenario_count);
 
