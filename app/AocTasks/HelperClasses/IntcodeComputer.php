@@ -9,6 +9,10 @@ class IntcodeComputer
     const OPCODE_MULTIPLY = 2;
     const OPCODE_INPUT = 3;
     const OPCODE_OUTPUT = 4;
+    const OPCODE_JMPT = 5;
+    const OPCODE_JMPF = 6;
+    const OPCODE_LT = 7;
+    const OPCODE_EQ = 8;
     const OPCODE_HALT = 99;
 
     const PARAMETER_MODE_POSITION = 0;
@@ -136,6 +140,38 @@ class IntcodeComputer
                 case self::OPCODE_OUTPUT:
                     $output = $this->nextParameterValue($parameterModes);
                     $this->output[] = $output;
+                    $this->instructionPointer++;
+                    break;
+                case self::OPCODE_JMPT:
+                    $param1 = $this->nextParameterValue($parameterModes);
+                    $param2 = $this->nextParameterValue($parameterModes);
+                    if ($param1 !== 0) {
+                        $this->instructionPointer = $param2;
+                        break;
+                    }
+                    $this->instructionPointer++;
+                    break;
+                case self::OPCODE_JMPF:
+                    $param1 = $this->nextParameterValue($parameterModes);
+                    $param2 = $this->nextParameterValue($parameterModes);
+                    if ($param1 === 0) {
+                        $this->instructionPointer = $param2;
+                        break;
+                    }
+                    $this->instructionPointer++;
+                    break;
+                case self::OPCODE_LT:
+                    $param1 = $this->nextParameterValue($parameterModes);
+                    $param2 = $this->nextParameterValue($parameterModes);
+                    $result = (int)($param1 < $param2);
+                    $this->memory[$this->memory[++$this->instructionPointer]] = $result;
+                    $this->instructionPointer++;
+                    break;
+                case self::OPCODE_EQ:
+                    $param1 = $this->nextParameterValue($parameterModes);
+                    $param2 = $this->nextParameterValue($parameterModes);
+                    $result = (int)($param1 === $param2);
+                    $this->memory[$this->memory[++$this->instructionPointer]] = $result;
                     $this->instructionPointer++;
                     break;
                 case self::OPCODE_HALT:
