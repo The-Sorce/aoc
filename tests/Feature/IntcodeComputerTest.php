@@ -91,6 +91,12 @@ describe('IntcodeComputer', function () {
         expect($computer->getOutputAsString())->toBe('1337');
     });
 
+    it('catches invalid parameter modes', function () {
+        $program = '2208,1,2,3,99';
+        $computer = new IntcodeComputer($program);
+        expect(fn() => $computer->run())->toThrow('Invalid parameter mode: 2');
+    });
+
 });
 
 describe('Year2019Day2Part1', function () {
