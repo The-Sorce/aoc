@@ -11,6 +11,9 @@ class IntcodeComputer
     const OPCODE_OUTPUT = 4;
     const OPCODE_HALT = 99;
 
+    const PARAMETER_MODE_POSITION = 0;
+    const PARAMETER_MODE_IMMEDIATE = 1;
+
     private array $memory = [];
     private int $instructionPointer = 0;
 
@@ -79,21 +82,44 @@ class IntcodeComputer
         return $outputString;
     }
 
+    private function nextParameterValue(int &$parameterModes): int
+    {
+        $parameterMode = $parameterModes % 10;
+        $parameterModes = (int)($parameterModes / 10);
+
+        $this->instructionPointer++;
+        switch ($parameterMode) {
+            case self::PARAMETER_MODE_POSITION:
+                $position = $this->memory[$this->instructionPointer];
+                return $this->memory[$position];
+                break;
+            case self::PARAMETER_MODE_IMMEDIATE:
+                $value = $this->memory[$this->instructionPointer];
+                return $value;
+                break;
+            default:
+                throw new \Exception("Invalid parameter mode: {$parameterMode}");
+        }
+
+    }
+
     public function run(): void
     {
         while (true) {
-            $opcode = $this->memory[$this->instructionPointer];
+            $opcodeValue = $this->memory[$this->instructionPointer];
+            $parameterModes = (int)($opcodeValue / 100);
+            $opcode = $opcodeValue % 100;
             switch ($opcode) {
                 case self::OPCODE_ADD:
-                    $term1 = $this->memory[$this->memory[++$this->instructionPointer]];
-                    $term2 = $this->memory[$this->memory[++$this->instructionPointer]];
+                    $term1 = $this->nextParameterValue($parameterModes);
+                    $term2 = $this->nextParameterValue($parameterModes);
                     $sum = $term1 + $term2;
                     $this->memory[$this->memory[++$this->instructionPointer]] = $sum;
                     $this->instructionPointer++;
                     break;
                 case self::OPCODE_MULTIPLY:
-                    $factor1 = $this->memory[$this->memory[++$this->instructionPointer]];
-                    $factor2 = $this->memory[$this->memory[++$this->instructionPointer]];
+                    $factor1 = $this->nextParameterValue($parameterModes);
+                    $factor2 = $this->nextParameterValue($parameterModes);
                     $product = $factor1 * $factor2;
                     $this->memory[$this->memory[++$this->instructionPointer]] = $product;
                     $this->instructionPointer++;
@@ -108,8 +134,8 @@ class IntcodeComputer
                     $this->instructionPointer++;
                     break;
                 case self::OPCODE_OUTPUT:
-                    $address = $this->memory[++$this->instructionPointer];
-                    $this->output[] = $this->memory[$address];
+                    $output = $this->nextParameterValue($parameterModes);
+                    $this->output[] = $output;
                     $this->instructionPointer++;
                     break;
                 case self::OPCODE_HALT:
