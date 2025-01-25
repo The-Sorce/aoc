@@ -158,4 +158,24 @@ describe('Year2019Day5Part1', function () {
         expect($computer->getOutputAsString())->toBe('12345');
     });
 
+    test('Multiply with immediate mode parameter', function () {
+        $program = '1002,4,3,4,33';
+        $expectedState = '1002,4,3,4,99';
+
+        $computer = new IntcodeComputer($program);
+        $computer->run();
+        $state = $computer->getMemoryAsString();
+        expect($state)->toBe($expectedState);
+    });
+
+    test('Integers can be negative', function () {
+        $program = '1101,100,-1,4,0';
+        $expectedState = '1101,100,-1,4,99';
+
+        $computer = new IntcodeComputer($program);
+        $computer->run();
+        $state = $computer->getMemoryAsString();
+        expect($state)->toBe($expectedState);
+    });
+
 });
