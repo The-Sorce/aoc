@@ -179,3 +179,133 @@ describe('Year2019Day5Part1', function () {
     });
 
 });
+
+describe('Year2019Day5Part2', function () {
+
+    test('Test case 1a (equal, position mode, true)', function () {
+        $program = '3,9,8,9,10,9,4,9,99,-1,8';
+        $computer = new IntcodeComputer($program);
+        $computer->addInput(8);
+        $computer->run();
+        expect($computer->getOutputAsString())->toBe('1');
+    });
+
+    test('Test case 1b (equal, position mode, false)', function () {
+        $program = '3,9,8,9,10,9,4,9,99,-1,8';
+        $computer = new IntcodeComputer($program);
+        $computer->addInput(6);
+        $computer->run();
+        expect($computer->getOutputAsString())->toBe('0');
+    });
+
+    test('Test case 2a (less than, position mode, true)', function () {
+        $program = '3,9,7,9,10,9,4,9,99,-1,8';
+        $computer = new IntcodeComputer($program);
+        $computer->addInput(6);
+        $computer->run();
+        expect($computer->getOutputAsString())->toBe('1');
+    });
+
+    test('Test case 2b (less than, position mode, false)', function () {
+        $program = '3,9,7,9,10,9,4,9,99,-1,8';
+        $computer = new IntcodeComputer($program);
+        $computer->addInput(10);
+        $computer->run();
+        expect($computer->getOutputAsString())->toBe('0');
+    });
+
+    test('Test case 3a (equal, immediate mode, true)', function () {
+        $program = '3,3,1108,-1,8,3,4,3,99';
+        $computer = new IntcodeComputer($program);
+        $computer->addInput(8);
+        $computer->run();
+        expect($computer->getOutputAsString())->toBe('1');
+    });
+
+    test('Test case 3b (equal, immediate mode, false)', function () {
+        $program = '3,3,1108,-1,8,3,4,3,99';
+        $computer = new IntcodeComputer($program);
+        $computer->addInput(6);
+        $computer->run();
+        expect($computer->getOutputAsString())->toBe('0');
+    });
+
+    test('Test case 4a (less than, immediate mode, true)', function () {
+        $program = '3,3,1107,-1,8,3,4,3,99';
+        $computer = new IntcodeComputer($program);
+        $computer->addInput(6);
+        $computer->run();
+        expect($computer->getOutputAsString())->toBe('1');
+    });
+
+    test('Test case 4b (less than, immediate mode, false)', function () {
+        $program = '3,3,1107,-1,8,3,4,3,99';
+        $computer = new IntcodeComputer($program);
+        $computer->addInput(10);
+        $computer->run();
+        expect($computer->getOutputAsString())->toBe('0');
+    });
+
+    test('Test case 5a (jump, position mode, zero)', function () {
+        $program = '3,12,6,12,15,1,13,14,13,4,13,99,-1,0,1,9';
+        $computer = new IntcodeComputer($program);
+        $computer->addInput(0);
+        $computer->run();
+        expect($computer->getOutputAsString())->toBe('0');
+    });
+
+    test('Test case 5b (jump, position mode, non-zero)', function () {
+        $program = '3,12,6,12,15,1,13,14,13,4,13,99,-1,0,1,9';
+        $computer = new IntcodeComputer($program);
+        $computer->addInput(1337);
+        $computer->run();
+        expect($computer->getOutputAsString())->toBe('1');
+    });
+
+    test('Test case 6a (jump, immediate mode, zero)', function () {
+        $program = '3,3,1105,-1,9,1101,0,0,12,4,12,99,1';
+        $computer = new IntcodeComputer($program);
+        $computer->addInput(0);
+        $computer->run();
+        expect($computer->getOutputAsString())->toBe('0');
+    });
+
+    test('Test case 6b (jump, immediate mode, non-zero)', function () {
+        $program = '3,3,1105,-1,9,1101,0,0,12,4,12,99,1';
+        $computer = new IntcodeComputer($program);
+        $computer->addInput(1337);
+        $computer->run();
+        expect($computer->getOutputAsString())->toBe('1');
+    });
+
+    test('Test case 7a (output 999 for input < 8)', function () {
+        $program = '3,21,1008,21,8,20,1005,20,22,107,8,21,20,1006,20,31,
+1106,0,36,98,0,0,1002,21,125,20,4,20,1105,1,46,104,
+999,1105,1,46,1101,1000,1,20,4,20,1105,1,46,98,99';
+        $computer = new IntcodeComputer($program);
+        $computer->addInput(6);
+        $computer->run();
+        expect($computer->getOutputAsString())->toBe('999');
+    });
+
+    test('Test case 7b (output 1000 for input = 8)', function () {
+        $program = '3,21,1008,21,8,20,1005,20,22,107,8,21,20,1006,20,31,
+1106,0,36,98,0,0,1002,21,125,20,4,20,1105,1,46,104,
+999,1105,1,46,1101,1000,1,20,4,20,1105,1,46,98,99';
+        $computer = new IntcodeComputer($program);
+        $computer->addInput(8);
+        $computer->run();
+        expect($computer->getOutputAsString())->toBe('1000');
+    });
+
+    test('Test case 7c (output 1001 for input > 8)', function () {
+        $program = '3,21,1008,21,8,20,1005,20,22,107,8,21,20,1006,20,31,
+1106,0,36,98,0,0,1002,21,125,20,4,20,1105,1,46,104,
+999,1105,1,46,1101,1000,1,20,4,20,1105,1,46,98,99';
+        $computer = new IntcodeComputer($program);
+        $computer->addInput(10);
+        $computer->run();
+        expect($computer->getOutputAsString())->toBe('1001');
+    });
+
+});
