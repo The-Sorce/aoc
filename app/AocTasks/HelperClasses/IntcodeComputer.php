@@ -100,7 +100,11 @@ class IntcodeComputer
                     break;
                 case self::OPCODE_INPUT:
                     $address = $this->memory[++$this->instructionPointer];
-                    $this->memory[$address] = array_shift($this->input);
+                    $inputValue = array_shift($this->input);
+                    if (is_null($inputValue)) {
+                        throw new \Exception('Missing input');
+                    }
+                    $this->memory[$address] = $inputValue;
                     $this->instructionPointer++;
                     break;
                 case self::OPCODE_OUTPUT:

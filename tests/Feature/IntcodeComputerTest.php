@@ -76,6 +76,12 @@ describe('IntcodeComputer', function () {
         expect($computer->getMemoryPos(50))->toBe(1337);
     });
 
+    it('throws exception for missing input', function () {
+        $program = '3,50,99';
+        $computer = new IntcodeComputer($program);
+        expect(fn() => $computer->run())->toThrow('Missing input');
+    });
+
     it('can write output', function () {
         $program = '4,50,99';
         $computer = new IntcodeComputer($program);
