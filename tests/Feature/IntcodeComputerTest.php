@@ -68,6 +68,23 @@ describe('IntcodeComputer', function () {
         expect(fn() => $computer->run())->toThrow('Invalid opcode: 88');
     });
 
+    it('can read input', function () {
+        $program = '3,50,99';
+        $computer = new IntcodeComputer($program);
+        $computer->addInput(1337);
+        $computer->run();
+        expect($computer->getMemoryPos(50))->toBe(1337);
+    });
+
+    it('can write output', function () {
+        $program = '4,50,99';
+        $computer = new IntcodeComputer($program);
+        $computer->setMemoryPos(50, 1337);
+        $computer->run();
+        expect($computer->getOutputAsArray())->toBe([1337]);
+        expect($computer->getOutputAsString())->toBe('1337');
+    });
+
 });
 
 describe('Year2019Day2Part1', function () {
@@ -120,6 +137,19 @@ describe('Year2019Day2Part1', function () {
         $computer->run();
         $state = $computer->getMemoryAsString();
         expect($state)->toBe($expectedState);
+    });
+
+});
+
+describe('Year2019Day5Part1', function () {
+
+    test('Input/Output test case', function () {
+        // The program 3,0,4,0,99 outputs whatever it gets as input, then halts.
+        $program = '3,0,4,0,99';
+        $computer = new IntcodeComputer($program);
+        $computer->addInput(12345);
+        $computer->run();
+        expect($computer->getOutputAsString())->toBe('12345');
     });
 
 });

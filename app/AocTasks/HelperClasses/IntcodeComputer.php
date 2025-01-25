@@ -7,10 +7,15 @@ class IntcodeComputer
 {
     const OPCODE_ADD = 1;
     const OPCODE_MULTIPLY = 2;
+    const OPCODE_INPUT = 3;
+    const OPCODE_OUTPUT = 4;
     const OPCODE_HALT = 99;
 
     private array $memory = [];
     private int $instructionPointer = 0;
+
+    private array $input = [];
+    private array $output = [];
 
     function __construct(string $memory = null)
     {
@@ -58,6 +63,22 @@ class IntcodeComputer
         $this->memory[$position] = $value;
     }
 
+    public function addInput(int $input): void
+    {
+        $this->input[] = $input;
+    }
+
+    public function getOutputAsArray(): array
+    {
+        return $this->output;
+    }
+
+    public function getOutputAsString(): string
+    {
+        $outputString = implode(',', $this->output);
+        return $outputString;
+    }
+
     public function run(): void
     {
         while (true) {
@@ -75,6 +96,16 @@ class IntcodeComputer
                     $factor2 = $this->memory[$this->memory[++$this->instructionPointer]];
                     $product = $factor1 * $factor2;
                     $this->memory[$this->memory[++$this->instructionPointer]] = $product;
+                    $this->instructionPointer++;
+                    break;
+                case self::OPCODE_INPUT:
+                    $address = $this->memory[++$this->instructionPointer];
+                    $this->memory[$address] = array_shift($this->input);
+                    $this->instructionPointer++;
+                    break;
+                case self::OPCODE_OUTPUT:
+                    $address = $this->memory[++$this->instructionPointer];
+                    $this->output[] = $this->memory[$address];
                     $this->instructionPointer++;
                     break;
                 case self::OPCODE_HALT:
