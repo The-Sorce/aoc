@@ -104,7 +104,6 @@ class IntcodeComputer
             default:
                 throw new \Exception("Invalid parameter mode: {$parameterMode}");
         }
-
     }
 
     public function run(): void
@@ -118,23 +117,25 @@ class IntcodeComputer
                     $term1 = $this->nextParameterValue($parameterModes);
                     $term2 = $this->nextParameterValue($parameterModes);
                     $sum = $term1 + $term2;
-                    $this->memory[$this->memory[++$this->instructionPointer]] = $sum;
+                    $resultPosition = $this->memory[++$this->instructionPointer];
+                    $this->memory[$resultPosition] = $sum;
                     $this->instructionPointer++;
                     break;
                 case self::OPCODE_MULTIPLY:
                     $factor1 = $this->nextParameterValue($parameterModes);
                     $factor2 = $this->nextParameterValue($parameterModes);
                     $product = $factor1 * $factor2;
-                    $this->memory[$this->memory[++$this->instructionPointer]] = $product;
+                    $resultPosition = $this->memory[++$this->instructionPointer];
+                    $this->memory[$resultPosition] = $product;
                     $this->instructionPointer++;
                     break;
                 case self::OPCODE_INPUT:
-                    $address = $this->memory[++$this->instructionPointer];
+                    $inputPosition = $this->memory[++$this->instructionPointer];
                     $inputValue = array_shift($this->input);
                     if (is_null($inputValue)) {
                         throw new \Exception('Missing input');
                     }
-                    $this->memory[$address] = $inputValue;
+                    $this->memory[$inputPosition] = $inputValue;
                     $this->instructionPointer++;
                     break;
                 case self::OPCODE_OUTPUT:
@@ -164,14 +165,16 @@ class IntcodeComputer
                     $param1 = $this->nextParameterValue($parameterModes);
                     $param2 = $this->nextParameterValue($parameterModes);
                     $result = (int)($param1 < $param2);
-                    $this->memory[$this->memory[++$this->instructionPointer]] = $result;
+                    $resultPosition = $this->memory[++$this->instructionPointer];
+                    $this->memory[$resultPosition] = $result;
                     $this->instructionPointer++;
                     break;
                 case self::OPCODE_EQ:
                     $param1 = $this->nextParameterValue($parameterModes);
                     $param2 = $this->nextParameterValue($parameterModes);
                     $result = (int)($param1 === $param2);
-                    $this->memory[$this->memory[++$this->instructionPointer]] = $result;
+                    $resultPosition = $this->memory[++$this->instructionPointer];
+                    $this->memory[$resultPosition] = $result;
                     $this->instructionPointer++;
                     break;
                 case self::OPCODE_HALT:
