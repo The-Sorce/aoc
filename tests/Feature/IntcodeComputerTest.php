@@ -91,10 +91,34 @@ describe('IntcodeComputer', function () {
         expect($computer->getOutputAsString())->toBe('1337');
     });
 
-    it('catches invalid parameter modes', function () {
-        $program = '2208,1,2,3,99';
+    it('catches invalid input parameter modes', function () {
+        $program = '3308,1,2,3,99';
         $computer = new IntcodeComputer($program);
-        expect(fn() => $computer->run())->toThrow('Invalid parameter mode: 2');
+        expect(fn() => $computer->run())->toThrow('Invalid input parameter mode: 3');
+    });
+
+    it('catches invalid output parameter modes', function () {
+        $program = '103,50,99';
+        $computer = new IntcodeComputer($program);
+        $computer->addInput(1337);
+        expect(fn() => $computer->run())->toThrow('Invalid output parameter mode: 1');
+    });
+
+    it('can adjust the relative base', function () {
+        $program = '109,19,99';
+        $computer = new IntcodeComputer($program);
+        $computer->adjustRelativeBase(2000);
+        $computer->run();
+        expect($computer->getRelativeBase())->toBe(2019);
+    });
+
+    it('can read memory in relative mode', function () {
+        $program = '204,-34,99';
+        $computer = new IntcodeComputer($program);
+        $computer->adjustRelativeBase(2019);
+        $computer->setMemoryPos(1985, 31337);
+        $computer->run();
+        expect($computer->getOutputAsString())->toBe('31337');
     });
 
 });
@@ -312,6 +336,31 @@ describe('Year2019Day5Part2', function () {
         $computer->addInput(10);
         $computer->run();
         expect($computer->getOutputAsString())->toBe('1001');
+    });
+
+});
+
+describe('Year2019Day9Part1', function () {
+
+    test('Test case 1 (produces a copy of itself)', function () {
+        $program = '109,1,204,-1,1001,100,1,100,1008,100,16,101,1006,101,0,99';
+        $computer = new IntcodeComputer($program);
+        $computer->run();
+        expect($computer->getOutputAsString())->toBe($program);
+    });
+
+    test('Test case 2 (outputs a 16-digit number)', function () {
+        $program = '1102,34915192,34915192,7,4,7,99,0';
+        $computer = new IntcodeComputer($program);
+        $computer->run();
+        expect(strlen($computer->getOutputAsString()))->toBe(16);
+    });
+
+    test('Test case 3 (outputs 1125899906842624)', function () {
+        $program = '104,1125899906842624,99';
+        $computer = new IntcodeComputer($program);
+        $computer->run();
+        expect($computer->getOutputAsString())->toBe('1125899906842624');
     });
 
 });
