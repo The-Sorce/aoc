@@ -24,7 +24,7 @@ class Day8Part2 extends Puzzle
                 $px_color = $layers[$j][$i];
                 if ($px_color != 2) break;
             }
-            echo ($px_color == 0) ? ' ' : '█';
+            echo ($px_color == 0) ? '  ' : '██';
             if (($i + 1) % $width == 0) echo "\n";
         }
         echo "\n";
