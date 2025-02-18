@@ -14,7 +14,8 @@
     "require": {
         "php": "^8.2.0",
         "laravel-zero/framework": "^11.36.1",
-        "nbtshq/aochelper": "dev-main"
+        "nbtshq/aochelper": "dev-main",
+        "thiagoalessio/tesseract_ocr": "^2.13"
     },
     "require-dev": {
         "laravel/pint": "^1.18.3",
