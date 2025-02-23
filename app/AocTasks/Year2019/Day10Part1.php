@@ -13,6 +13,8 @@ class Day10Part1 extends Puzzle
 
     protected string $puzzleAnswerDescription = 'How many other asteroids can be detected from the best location';
 
+    public array $bestAsteroid;
+
     public function solve(): Puzzle
     {
         $input = $this->getPuzzleInput();
@@ -27,6 +29,7 @@ class Day10Part1 extends Puzzle
         $this->debug('');
 
         $maxVisibleAsteroids = 0;
+        $visibleAsteroidsPerAst = [];
 
         foreach ($asteroids as $key => $candAst) {
             $this->debug("Considering candidate asteroid {$key} at {$candAst['x']},{$candAst['y']}");
@@ -54,8 +57,13 @@ class Day10Part1 extends Puzzle
             $visibleAsteroids = count($g->findCells('#'));
             $this->debug("A total of {$visibleAsteroids} visible asteroids from candidate asteroid");
             $this->debug('');
+            $visibleAsteroidsPerAst[$key] = $visibleAsteroids;
             $maxVisibleAsteroids = max($maxVisibleAsteroids, $visibleAsteroids);
         }
+
+        $this->bestAsteroid = $asteroids[array_search($maxVisibleAsteroids, $visibleAsteroidsPerAst)];
+        $this->debug("Best asteroid found at {$this->bestAsteroid['x']},{$this->bestAsteroid['y']}");
+        $this->debug('');
 
         $this->setPuzzleAnswer((string)$maxVisibleAsteroids);
 
