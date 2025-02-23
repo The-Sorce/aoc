@@ -20,13 +20,21 @@ class IntcodeComputer
     const PARAMETER_MODE_IMMEDIATE = 1;
     const PARAMETER_MODE_RELATIVE = 2;
 
+    const IO_MODE_ARRAY = 0;
+    const IO_MODE_STREAM = 1;
+
     private array $memory = [];
     private int $instructionPointer = 0;
 
     private int $relativeBase = 0;
 
-    private array $input = [];
-    private array $output = [];
+    private int $ioMode = self::IO_MODE_ARRAY;
+
+    private array $inputArray = [];
+    private array $outputArray = [];
+
+    private mixed $inputStream;
+    private mixed $outputStream;
 
     function __construct(string $memory = null)
     {
@@ -75,20 +83,72 @@ class IntcodeComputer
         $this->memory[$position] = $value;
     }
 
+    public function setIoStreams(mixed $inputStream, mixed $outputStream): void
+    {
+        $this->ioMode = self::IO_MODE_STREAM;
+
+        $this->inputStream = $inputStream;
+        $this->outputStream = $outputStream;
+    }
+
     public function addInput(int $input): void
     {
-        $this->input[] = $input;
+        switch ($this->ioMode) {
+            case self::IO_MODE_ARRAY:
+                $this->inputArray[] = $input;
+                return;
+                break;
+            case self::IO_MODE_STREAM:
+                throw new \Exception("addInput() is not supported in STREAM I/O mode");
+                break;
+            default:
+               throw new \Exception("Invalid I/O mode: {$this->ioMode}");
+        }
     }
 
     public function getOutputAsArray(): array
     {
-        return $this->output;
+        return $this->outputArray;
     }
 
     public function getOutputAsString(): string
     {
-        $outputString = implode(',', $this->output);
+        $outputString = implode(',', $this->outputArray);
         return $outputString;
+    }
+
+    private function readInput(): int
+    {
+        switch ($this->ioMode) {
+            case self::IO_MODE_ARRAY:
+                $inputValue = array_shift($this->inputArray);
+                if (is_null($inputValue)) {
+                    throw new \Exception('Missing input');
+                }
+                return $inputValue;
+                break;
+            case self::IO_MODE_STREAM:
+                $rawInput = stream_get_line($this->inputStream, 0, ',');
+                $inputValue = (int)$rawInput;
+                return $inputValue;
+                break;
+            default:
+               throw new \Exception("Invalid I/O mode: {$this->ioMode}");
+        }
+    }
+
+    private function writeOutput(int $output): void
+    {
+        switch ($this->ioMode) {
+            case self::IO_MODE_STREAM:
+                fwrite($this->outputStream, "{$output},");
+            case self::IO_MODE_ARRAY:
+                $this->outputArray[] = $output;
+                return;
+                break;
+            default:
+                throw new \Exception("Invalid I/O mode: {$this->ioMode}");
+        }
     }
 
     public function getRelativeBase(): int
@@ -170,16 +230,13 @@ class IntcodeComputer
                     break;
                 case self::OPCODE_INPUT:
                     $inputPosition = $this->nextOutputParameterPosition($parameterModes);
-                    $inputValue = array_shift($this->input);
-                    if (is_null($inputValue)) {
-                        throw new \Exception('Missing input');
-                    }
+                    $inputValue = $this->readInput();
                     $this->memory[$inputPosition] = $inputValue;
                     $this->instructionPointer++;
                     break;
                 case self::OPCODE_OUTPUT:
                     $output = $this->nextInputParameterValue($parameterModes);
-                    $this->output[] = $output;
+                    $this->writeOutput($output);
                     $this->instructionPointer++;
                     break;
                 case self::OPCODE_JMPT:
@@ -229,4 +286,20 @@ class IntcodeComputer
             }
         }
     }
+
+    public function runInBackground(): void
+    {
+        $pid = pcntl_fork();
+        if ($pid == -1) {
+            die('Could not fork');
+        } elseif ($pid) {
+            // parent process
+            return;
+        } else {
+            // child process
+            $this->run();
+            exit(0);
+        }
+    }
+
 }
