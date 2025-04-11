@@ -21,7 +21,6 @@ class MultiarrayFunctions
                 foreach ($input as $row) {
                         $output .= implode('', $row) . "\n";
                 }
-                $output = trim($output);
                 return $output;
         }
 
