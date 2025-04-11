@@ -15,7 +15,7 @@ class Day15Part1 extends Puzzle
     protected string $puzzleAnswerDescription = 'The fewest number of movement commands required';
 
     private IntcodeComputer $computer;
-    private Grid $grid;
+    public Grid $grid;
 
     private int $steps;
 
