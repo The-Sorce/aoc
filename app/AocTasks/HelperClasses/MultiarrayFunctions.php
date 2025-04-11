@@ -24,4 +24,17 @@ class MultiarrayFunctions
                 return $output;
         }
 
+        public static function create_multiarray($width, $height, $value = ' '): array
+        {
+                $multiarray = [];
+                for ($y = 0; $y < $height; $y++) {
+                        $row = [];
+                        for ($x = 0; $x < $width; $x++) {
+                                $row[] = $value;
+                        }
+                        $multiarray[] = $row;
+                }
+                return $multiarray;
+        }
+
 }
