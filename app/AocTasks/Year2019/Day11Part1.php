@@ -15,13 +15,7 @@ class Day11Part1 extends Puzzle
     public function solve(): Puzzle
     {
         $computer = new IntcodeComputer($this->getPuzzleInput());
-
-        // Well shit, why didn't I implement this directly in the IntcodeComputer yet...?! FML.
-        $ioStreams = [];
-        $ioStreams[0] = stream_socket_pair(STREAM_PF_UNIX, STREAM_SOCK_STREAM, STREAM_IPPROTO_IP);
-        $ioStreams[1] = stream_socket_pair(STREAM_PF_UNIX, STREAM_SOCK_STREAM, STREAM_IPPROTO_IP);
-        $computer->setIoStreams($ioStreams[0][1], $ioStreams[1][0]);
-        $computer->runInBackground();
+        $computer->setIoMode(IntcodeComputer::IO_MODE_ARRAY_PAUSING);
 
         $posX = 0;
         $posY = 0;
@@ -30,18 +24,17 @@ class Day11Part1 extends Puzzle
         $whitePanels = [];
         $paintedPanels = [];
 
-        while (true) {
+        while (!$computer->hasHalted()) {
             // Color of current panel (0 = black, 1 = white)
             $curPanelColor = (int)isset($whitePanels["{$posX},{$posY}"]);
 
             $this->debug("Current panel: {$posX},{$posY}, color: {$curPanelColor}, direction: {$direction}");
 
-            //$computer->addInput($curPanelColor);
-            fwrite($ioStreams[0][0], "{$curPanelColor},"); // TODO: Fix later...
+            $computer->addInput($curPanelColor);
+            $computer->run();
 
-            //$output = $computer->getNextOutput();
-            $newPanelColor = (int)stream_get_line($ioStreams[1][1], 0, ',');
-            $newDirection = (int)stream_get_line($ioStreams[1][1], 0, ',');
+            $newPanelColor = $computer->getNextOutput();
+            $newDirection = $computer->getNextOutput();
 
             $this->debug("New panel color: {$newPanelColor}, new direction: {$newDirection}");
 
@@ -87,9 +80,6 @@ class Day11Part1 extends Puzzle
                 default:
                 throw new \Exception("Unexpected direction: {$direction}");
             }
-
-            // Lol this infinite loop is good times. Remove this when solved.
-            $this->info("Painted panels so far: " . count($paintedPanels));
         }
 
         $this->setPuzzleAnswer((string)count($paintedPanels));
