@@ -25,9 +25,18 @@ class Grid
 		return $this->grid;
 	}
 
+	public function setCurCell($value) {
+		$this->grid[$this->pos_y][$this->pos_x] = $value;
+		return;
+	}
+
 	public function setCell($x, $y, $value) {
 		$this->grid[$y][$x] = $value;
 		return;
+	}
+
+	public function getCurCell() {
+		return $this->getCell($this->pos_x, $this->pos_y);
 	}
 
 	public function getCell($x, $y) {
@@ -53,8 +62,8 @@ class Grid
 
 	public function getPos() {
 		return [
-			'x' => $x,
-			'y' => $y,
+			'x' => $this->pos_x,
+			'y' => $this->pos_y,
 		];
 	}
 
@@ -92,6 +101,26 @@ class Grid
 		$x = $this->pos_x+1;
 		$y = $this->pos_y;
 		return $this->getCell($x, $y);
+	}
+
+	public function moveUp() {
+		$this->pos_y--;
+		return;
+	}
+
+	public function moveDown() {
+		$this->pos_y++;
+		return;
+	}
+
+	public function moveLeft() {
+		$this->pos_x--;
+		return;
+	}
+
+	public function moveRight() {
+		$this->pos_x++;
+		return;
 	}
 
 	public function upLeft() {
