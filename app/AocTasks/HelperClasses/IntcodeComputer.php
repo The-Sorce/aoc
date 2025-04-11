@@ -115,9 +115,13 @@ class IntcodeComputer
         }
     }
 
-    public function getOutputAsArray(): array
+    public function getOutputAsArray($emptyAfterReading = false): array
     {
-        return $this->outputArray;
+        $output = $this->outputArray;
+        if ($emptyAfterReading) {
+            $this->outputArray = [];
+        }
+        return $output;
     }
 
     public function getOutputAsString(): string
