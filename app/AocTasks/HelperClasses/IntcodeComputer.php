@@ -136,11 +136,6 @@ class IntcodeComputer
         return $this->halted;
     }
 
-    private function readInput(): int
-    {
-
-    }
-
     private function writeOutput(int $output): void
     {
         switch ($this->ioMode) {
