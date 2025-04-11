@@ -37,6 +37,8 @@ class IntcodeComputer
     private mixed $inputStream;
     private mixed $outputStream;
 
+    private bool $halted = false;
+
     function __construct(string $memory = null)
     {
         if (!is_null($memory)) {
@@ -122,6 +124,16 @@ class IntcodeComputer
     {
         $outputString = implode(',', $this->outputArray);
         return $outputString;
+    }
+
+    public function getNextOutput(): int
+    {
+        return array_shift($this->outputArray);
+    }
+
+    public function hasHalted(): bool
+    {
+        return $this->halted;
     }
 
     private function readInput(): int
@@ -292,6 +304,7 @@ class IntcodeComputer
                     $this->instructionPointer++;
                     break;
                 case self::OPCODE_HALT:
+                    $this->halted = true;
                     return;
                     break;
                 default:
