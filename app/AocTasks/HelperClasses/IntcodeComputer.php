@@ -20,15 +20,16 @@ class IntcodeComputer
     const PARAMETER_MODE_IMMEDIATE = 1;
     const PARAMETER_MODE_RELATIVE = 2;
 
-    const IO_MODE_ARRAY = 0;
-    const IO_MODE_STREAM = 1;
+    const IO_MODE_ARRAY_STRICT = 0; // Throws exception on missing input
+    const IO_MODE_ARRAY_PAUSING = 1; // Pauses execution on missing input
+    const IO_MODE_STREAM = 2;
 
     private array $memory = [];
     private int $instructionPointer = 0;
 
     private int $relativeBase = 0;
 
-    private int $ioMode = self::IO_MODE_ARRAY;
+    private int $ioMode = self::IO_MODE_ARRAY_STRICT;
 
     private array $inputArray = [];
     private array $outputArray = [];
@@ -83,6 +84,11 @@ class IntcodeComputer
         $this->memory[$position] = $value;
     }
 
+    public function setIoMode(int $ioMode): void
+    {
+        $this->ioMode = $ioMode;
+    }
+
     public function setIoStreams(mixed $inputStream, mixed $outputStream): void
     {
         $this->ioMode = self::IO_MODE_STREAM;
@@ -94,7 +100,8 @@ class IntcodeComputer
     public function addInput(int $input): void
     {
         switch ($this->ioMode) {
-            case self::IO_MODE_ARRAY:
+            case self::IO_MODE_ARRAY_STRICT:
+            case self::IO_MODE_ARRAY_PAUSING:
                 $this->inputArray[] = $input;
                 return;
                 break;
@@ -119,22 +126,7 @@ class IntcodeComputer
 
     private function readInput(): int
     {
-        switch ($this->ioMode) {
-            case self::IO_MODE_ARRAY:
-                $inputValue = array_shift($this->inputArray);
-                if (is_null($inputValue)) {
-                    throw new \Exception('Missing input');
-                }
-                return $inputValue;
-                break;
-            case self::IO_MODE_STREAM:
-                $rawInput = stream_get_line($this->inputStream, 0, ',');
-                $inputValue = (int)$rawInput;
-                return $inputValue;
-                break;
-            default:
-               throw new \Exception("Invalid I/O mode: {$this->ioMode}");
-        }
+
     }
 
     private function writeOutput(int $output): void
@@ -142,7 +134,8 @@ class IntcodeComputer
         switch ($this->ioMode) {
             case self::IO_MODE_STREAM:
                 fwrite($this->outputStream, "{$output},");
-            case self::IO_MODE_ARRAY:
+            case self::IO_MODE_ARRAY_STRICT:
+            case self::IO_MODE_ARRAY_PAUSING:
                 $this->outputArray[] = $output;
                 return;
                 break;
@@ -229,8 +222,28 @@ class IntcodeComputer
                     $this->instructionPointer++;
                     break;
                 case self::OPCODE_INPUT:
+                    // Read input
+                    switch ($this->ioMode) {
+                        case self::IO_MODE_ARRAY_STRICT:
+                            if (count($this->inputArray) === 0) {
+                                throw new \Exception('Missing input');
+                            }
+                            $inputValue = array_shift($this->inputArray);
+                            break;
+                        case self::IO_MODE_ARRAY_PAUSING:
+                            if (count($this->inputArray) === 0) {
+                                return;
+                            }
+                            $inputValue = array_shift($this->inputArray);
+                            break;
+                        case self::IO_MODE_STREAM:
+                            $rawInput = stream_get_line($this->inputStream, 0, ',');
+                            $inputValue = (int)$rawInput;
+                            break;
+                        default:
+                           throw new \Exception("Invalid I/O mode: {$this->ioMode}");
+                    }
                     $inputPosition = $this->nextOutputParameterPosition($parameterModes);
-                    $inputValue = $this->readInput();
                     $this->memory[$inputPosition] = $inputValue;
                     $this->instructionPointer++;
                     break;
