@@ -17,13 +17,7 @@ class Day11Part2 extends Puzzle
     public function solve(): Puzzle
     {
         $computer = new IntcodeComputer($this->getPuzzleInput());
-
-        // Well shit, why didn't I implement this directly in the IntcodeComputer yet...?! FML.
-        $ioStreams = [];
-        $ioStreams[0] = stream_socket_pair(STREAM_PF_UNIX, STREAM_SOCK_STREAM, STREAM_IPPROTO_IP);
-        $ioStreams[1] = stream_socket_pair(STREAM_PF_UNIX, STREAM_SOCK_STREAM, STREAM_IPPROTO_IP);
-        $computer->setIoStreams($ioStreams[0][1], $ioStreams[1][0]);
-        $computer->runInBackground();
+        $computer->setIoMode(IntcodeComputer::IO_MODE_ARRAY_PAUSING);
 
         $posX = 0;
         $posY = 0;
@@ -35,18 +29,17 @@ class Day11Part2 extends Puzzle
         // Make the first panel white.
         $whitePanels['0,0'] = true;
 
-        while (true) {
+        while (!$computer->hasHalted()) {
             // Color of current panel (0 = black, 1 = white)
             $curPanelColor = (int)isset($whitePanels["{$posX},{$posY}"]);
 
             $this->debug("Current panel: {$posX},{$posY}, color: {$curPanelColor}, direction: {$direction}");
 
-            //$computer->addInput($curPanelColor);
-            fwrite($ioStreams[0][0], "{$curPanelColor},"); // TODO: Fix later...
+            $computer->addInput($curPanelColor);
+            $computer->run();
 
-            //$output = $computer->getNextOutput();
-            $newPanelColor = (int)stream_get_line($ioStreams[1][1], 0, ',');
-            $newDirection = (int)stream_get_line($ioStreams[1][1], 0, ',');
+            $newPanelColor = $computer->getNextOutput();
+            $newDirection = $computer->getNextOutput();
 
             $this->debug("New panel color: {$newPanelColor}, new direction: {$newDirection}");
 
@@ -92,36 +85,22 @@ class Day11Part2 extends Puzzle
                 default:
                 throw new \Exception("Unexpected direction: {$direction}");
             }
-
-            // Lol this infinite loop is good times. Remove this when solved.
-            $this->debug("Painted panels so far: " . count($paintedPanels));
-            if (count($paintedPanels) == 93) break;
         }
 
-        $minX = 0;
-        $minY = 0;
         $maxX = 0;
         $maxY = 0;
         foreach (array_keys($whitePanels) as $key) {
             [$x, $y] = explode(',', $key);
-            $x = (int)$x;
-            $y = (int)$y;
-            $minX = min($minX, $x);
-            $minY = min($minY, $y);
-            $maxX = max($maxX, $x);
-            $maxY = max($maxY, $y);
+            $maxX = max($maxX, (int)$x);
+            $maxY = max($maxY, (int)$y);
         }
-        $this->debug("X = [{$minX}..{$maxX}], Y = [{$minY}..{$maxY}]");
-        $offsetX = $minX < 0 ? abs($minX) : 0;
-        $offsetY = $minY < 0 ? abs($minY) : 0;
-        $this->debug("Offset coordinates by x = {$offsetX}, y = {$offsetY}");
-        $sizeX = $maxX + $offsetX;
-        $sizeY = $maxY + $offsetY;
+        $this->debug("Max X = {$maxX}, Max Y = {$maxY}");
+
         $visualization = [];
-        for ($y = 0; $y < $sizeY; $y++) {
+        for ($y = 0; $y <= $maxY; $y++) {
             $row = [];
-            for ($x = 0; $x < $sizeX; $x++) {
-                $row[] = ' ';
+            for ($x = 0; $x <= $maxX; $x++) {
+                $row[] = '  ';
             }
             $visualization[] = $row;
         }
@@ -131,17 +110,13 @@ class Day11Part2 extends Puzzle
 
         foreach (array_keys($whitePanels) as $key) {
             [$x, $y] = explode(',', $key);
-            $x = (int)$x + $offsetX;
-            $y = (int)$y + $offsetY;
-            $grid->setCell($x, $y, "X");
+            $grid->setCell((int)$x, (int)$y, "██");
         }
 
-        echo "\n\n\n";
         echo MultiarrayFunctions::multiarray_to_text($grid->getGrid());
-        echo "\n\n\n";
+        echo "\n";
 
-
-        $this->setPuzzleAnswer((string)count($paintedPanels));
+        $this->setPuzzleAnswer("Read above");
 
         return $this;
     }
