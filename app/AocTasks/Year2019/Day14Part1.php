@@ -13,7 +13,7 @@ class Day14Part1 extends Puzzle
 
     private array $dependencyMap = [];
     private array $chemicalBalance = [];
-    private int $oreConsumed = 0;
+    public int $oreConsumed = 0;
 
     public function solve(): Puzzle
     {
@@ -49,7 +49,7 @@ class Day14Part1 extends Puzzle
         return $this;
     }
 
-    private function produceChemical(string $type, int $amount): void
+    public function produceChemical(string $type, int $amount): void
     {
         $this->debug("Producing {$amount} {$type}...");
         $weight = ceil($amount / $this->dependencyMap[$type]['amount']);
