@@ -17,46 +17,24 @@ class Day16Part1 extends Puzzle
         $this->info("Input has " . count($input) . " elements");
         $this->info("");
 
-        $basePattern = [0, 1, 0, -1];
-        $this->info("Generating repeating patterns for each element");
-        $repeatingPatterns = [];
-        for ($i = 0; $i < count($input); $i++) {
-            $pattern = [];
-
-            // repeat each value in the pattern a number of times equal to the position in the output list
-            foreach ($basePattern as $x) {
-                for ($j = 0; $j <= $i; $j++) {
-                    $pattern[] = $x;
-                }
-            }
-
-            // repeat the pattern until we have as many values as we need (i.e. at least as many as we have elements)
-            while (count($pattern) <= count($input)) {
-                $pattern = array_merge($pattern, $pattern);
-            }
-
-            // however, no need to have more values than we have elements
-            $pattern = array_slice($pattern, $i+1, count($input)-$i);
-
-            $this->debug("Pattern for pos {$i} has " . count($pattern) . " elements");
-            
-            $repeatingPatterns[] = $pattern;
-        }
-        $this->info(" ");
-
         $phases = 100;
         $this->info("Applying {$phases} phases of FFT");
         for ($phase = 1; $phase <= $phases; $phase++) {
             $output = [];
             for ($i = 0; $i < count($input); $i++) {
                 $output[$i] = 0;
-                for ($j = $i; $j < count($input); $j++) {
-                    $multiplier = $repeatingPatterns[$i][$j-$i];
 
-                    //$this->debug("i = {$i}, j = {$j}, multiplier = {$multiplier}, input[i] = {$input[$j]}");
-
-                    $output[$i] += $input[$j] * $multiplier;
+                foreach (array_chunk(array_slice($input, $i), $i+1) as $j => $chunk) {
+                    switch ($j % 4) {
+                    case 0:
+                        $output[$i] += array_sum($chunk);
+                        break;
+                    case 2:
+                        $output[$i] -= array_sum($chunk);
+                        break;
+                    }
                 }
+
                 // only the ones digit is kept
                 $output[$i] = abs($output[$i] % 10);
             }
