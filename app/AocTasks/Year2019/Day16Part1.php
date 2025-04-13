@@ -30,8 +30,13 @@ class Day16Part1 extends Puzzle
                 }
             }
 
-            // skip the very first value exactly once
-            $pattern[] = array_shift($pattern);
+            // repeat the pattern until we have as many values as we need (i.e. at least as many as we have elements)
+            while (count($pattern) <= count($input)) {
+                $pattern = array_merge($pattern, $pattern);
+            }
+
+            // however, no need to have more values than we have elements (+1)
+            $pattern = array_slice($pattern, 0, count($input) + 1);
 
             $this->debug("Pattern for pos {$i} has " . count($pattern) . " elements");
             
@@ -43,15 +48,11 @@ class Day16Part1 extends Puzzle
         $this->info("Applying {$phases} phases of FFT");
         for ($phase = 1; $phase <= $phases; $phase++) {
             $output = [];
-
-            // Don't mind this, misunderstood original specs. This is a workaround.
-            $patterns = $repeatingPatterns;
-
             for ($i = 0; $i < count($input); $i++) {
                 $output[$i] = 0;
+                reset($repeatingPatterns[$i]);
                 for ($j = 0; $j < count($input); $j++) {
-                    $multiplier = array_shift($patterns[$i]);
-                    $patterns[$i][] = $multiplier;
+                    $multiplier = next($repeatingPatterns[$i]);
 
                     //$this->debug("i = {$i}, j = {$j}, multiplier = {$multiplier}, input[i] = {$input[$j]}");
 
