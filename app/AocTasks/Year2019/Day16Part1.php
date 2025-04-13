@@ -14,14 +14,15 @@ class Day16Part1 extends Puzzle
     public function solve(): Puzzle
     {
         $input = str_split($this->getPuzzleInput());
-        $this->info("Input has " . count($input) . " elements");
+        $elements = count($input);
+        $this->info("Input has {$elements} elements");
         $this->info("");
 
         $phases = 100;
         $this->info("Applying {$phases} phases of FFT");
         for ($phase = 1; $phase <= $phases; $phase++) {
             $output = [];
-            for ($i = 0; $i < count($input); $i++) {
+            for ($i = 0; $i < $elements; $i++) {
                 $output[$i] = 0;
 
                 foreach (array_chunk(array_slice($input, $i), $i+1) as $j => $chunk) {
