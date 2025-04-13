@@ -20,12 +20,12 @@ class Day16Part1 extends Puzzle
         $basePattern = [0, 1, 0, -1];
         $this->info("Generating repeating patterns for each element");
         $repeatingPatterns = [];
-        for ($i = 1; $i <= count($input); $i++) {
+        for ($i = 0; $i < count($input); $i++) {
             $pattern = [];
 
             // repeat each value in the pattern a number of times equal to the position in the output list
             foreach ($basePattern as $x) {
-                for ($j = 1; $j <= $i; $j++) {
+                for ($j = 0; $j <= $i; $j++) {
                     $pattern[] = $x;
                 }
             }
@@ -35,8 +35,8 @@ class Day16Part1 extends Puzzle
                 $pattern = array_merge($pattern, $pattern);
             }
 
-            // however, no need to have more values than we have elements (+1)
-            $pattern = array_slice($pattern, 0, count($input) + 1);
+            // however, no need to have more values than we have elements
+            $pattern = array_slice($pattern, $i+1, count($input)-$i);
 
             $this->debug("Pattern for pos {$i} has " . count($pattern) . " elements");
             
@@ -51,7 +51,7 @@ class Day16Part1 extends Puzzle
             for ($i = 0; $i < count($input); $i++) {
                 $output[$i] = 0;
                 for ($j = $i; $j < count($input); $j++) {
-                    $multiplier = $repeatingPatterns[$i][$j+1];
+                    $multiplier = $repeatingPatterns[$i][$j-$i];
 
                     //$this->debug("i = {$i}, j = {$j}, multiplier = {$multiplier}, input[i] = {$input[$j]}");
 
