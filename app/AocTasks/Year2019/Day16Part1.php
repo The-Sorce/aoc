@@ -50,9 +50,8 @@ class Day16Part1 extends Puzzle
             $output = [];
             for ($i = 0; $i < count($input); $i++) {
                 $output[$i] = 0;
-                reset($repeatingPatterns[$i]);
-                for ($j = 0; $j < count($input); $j++) {
-                    $multiplier = next($repeatingPatterns[$i]);
+                for ($j = $i; $j < count($input); $j++) {
+                    $multiplier = $repeatingPatterns[$i][$j+1];
 
                     //$this->debug("i = {$i}, j = {$j}, multiplier = {$multiplier}, input[i] = {$input[$j]}");
 
