@@ -6,7 +6,6 @@ namespace App\AocTasks\Year2019;
 use App\AocTasks\HelperClasses\IntcodeComputer;
 use NorthernBytes\AocHelper\Puzzle;
 
-
 class Day19Part1 extends Puzzle
 {
     protected string $puzzleName = 'Tractor Beam';
